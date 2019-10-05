@@ -1,0 +1,22 @@
+wca:
+  export-url: "http://www.worldcubeassociation.org/results/misc/WCA_export.tsv.zip"
+#  path: "wca/"
+  path: "~/wca/"
+  export-zip: "WCA_export.tsv.zip"
+  extract-path: "WCA_EXPORT/"
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:${wca.path}/db;CACHE_SIZE=10240
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+server:
+  port: 8081
+
