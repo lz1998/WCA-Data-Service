@@ -82,7 +82,7 @@ public class DataImportUtil {
 //    }
 
 //    public static void importData(String filepath, JpaRepository repository, Class entityClass) throws SQLException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-//        // TODO 自己电脑上能用，服务器上killed
+//
 //        Csv csv=new Csv();
 //
 //        csv.setFieldSeparatorRead('\t');

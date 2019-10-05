@@ -1,6 +1,5 @@
 package xin.lz1998.wcads.service.impl;
 
-import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,28 +13,33 @@ import java.util.List;
 
 @Service
 public class WcaPersonServiceImpl implements WcaPersonService {
-    // TODO 分页
-    // TODO 根据多个关键字查找
+    // TODO 分页，对结果包装，status,msg,rst_size,total_size,cur_page,total_page
     @Autowired
     private WcaPersonRepository wcaPersonRepository;
 
-    private static final String FILENAME="WCA_export_Persons.tsv";
+    private static final String FILENAME = "WCA_export_Persons.tsv";
+
     @Transactional
     @Override
-    public void importData(){
-        String filepath= Config.getWcaExtractPath() +FILENAME;
-        DataImportUtil.importData(filepath,wcaPersonRepository,WcaPerson.class);
+    public void importData() {
+        String filepath = Config.getWcaExtractPath() + FILENAME;
+        DataImportUtil.importData(filepath, wcaPersonRepository, WcaPerson.class);
 
     }
 
     @Override
-    public WcaPerson findWcaPersonById(String id) {
+    public WcaPerson findPersonById(String id) {
         return wcaPersonRepository.findWcaPersonById(id);
     }
 
-
     @Override
-    public List<WcaPerson> findWcaPeopleByNameContaining(String name) {
+    public List<WcaPerson> findPeopleByNameContaining(String name) {
         return wcaPersonRepository.findWcaPeopleByNameContaining(name);
+    }
+
+    // 关键词出现在名字或ID中
+    @Override
+    public List<WcaPerson> searchPeople(List<String> keywords) {
+        return wcaPersonRepository.searchPeople(keywords);
     }
 }

@@ -8,9 +8,9 @@ import xin.lz1998.wcads.service.WcaRankAverageService;
 
 import java.util.List;
 
-@RequestMapping("/wcaRankAverage")
+@RequestMapping("/wcaAverage")
 @RestController
-public class WcaRankAverageController {
+public class WcaAverageController {
     @Autowired
     private WcaRankAverageService wcaRankAverageService;
     @RequestMapping("/importData")
@@ -18,12 +18,12 @@ public class WcaRankAverageController {
         wcaRankAverageService.importData();
         return "ok";
     }
-    @RequestMapping("/findWcaRankAveragesByPersonId")
-    public List<WcaRankAverage> findWcaRankAveragesByPersonId(String personId) {
-        return wcaRankAverageService.findWcaRankAveragesByPersonId(personId);
+    @RequestMapping("/findBestResultsByPersonId")
+    public List<WcaRankAverage> findBestResultsByPersonId(String personId) {
+        return wcaRankAverageService.findBestResultsByPersonId(personId);
     }
-    @RequestMapping("/findWcaRankAverageByPersonIdAndEventId")
-    public WcaRankAverage findWcaRankAverageByPersonIdAndEventId(String personId, String eventId) {
-        return wcaRankAverageService.findWcaRankAverageByPersonIdAndEventId(personId,eventId);
+    @RequestMapping("/findBestResultByPersonIdAndEventId")
+    public WcaRankAverage findBestResultByPersonIdAndEventId(String personId, String eventId) {
+        return wcaRankAverageService.findBestResultByPersonIdAndEventId(personId,eventId);
     }
 }

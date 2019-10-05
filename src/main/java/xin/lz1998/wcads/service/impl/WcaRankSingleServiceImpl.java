@@ -27,12 +27,12 @@ public class WcaRankSingleServiceImpl implements WcaRankSingleService {
     }
 
     @Override
-    public List<WcaRankSingle> findWcaRankSinglesByPersonId(String personId) {
+    public List<WcaRankSingle> findBestResultsByPersonId(String personId) {
         return wcaRankSingleRepository.findWcaRankSinglesByPersonId(personId);
     }
 
     @Override
-    public WcaRankSingle findWcaRankSingleByPersonIdAndEventId(String personId, String eventId) {
+    public WcaRankSingle findBestResultsByPersonIdAndEventId(String personId, String eventId) {
         return wcaRankSingleRepository.findWcaRankSingleByPersonIdAndEventId(personId,eventId);
     }
 }

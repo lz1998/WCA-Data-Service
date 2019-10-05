@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import xin.lz1998.wcads.entity.WcaPerson;
 import xin.lz1998.wcads.service.WcaPersonService;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RequestMapping("/wcaPerson")
@@ -18,16 +19,22 @@ public class WcaPersonController {
         wcaPersonService.importData();
         return "ok";
     }
-    @RequestMapping("/findWcaPersonById")
-    public Object findWcaPersonById(String id){
-        return wcaPersonService.findWcaPersonById(id);
+    @RequestMapping("/findPersonById")
+    public Object findPersonById(String id){
+        return wcaPersonService.findPersonById(id);
     }
 
 
 
-    @RequestMapping("/findWcaPeopleByNameContaining")
-    public List<WcaPerson> findWcaPeopleByNameContaining(String name) {
-        return wcaPersonService.findWcaPeopleByNameContaining(name);
+    @RequestMapping("/findPeopleByNameContaining")
+    public List<WcaPerson> findPeopleByNameContaining(String name) {
+        return wcaPersonService.findPeopleByNameContaining(name);
+    }
+
+    @RequestMapping("/searchPeople")
+    public List<WcaPerson> searchPeople(String q) {
+        String[] keywordArray=q.split(" ");
+        return wcaPersonService.searchPeople(Arrays.asList(keywordArray));
     }
 
 }

@@ -27,12 +27,12 @@ public class WcaRankAverageServiceImpl implements WcaRankAverageService {
     }
 
     @Override
-    public List<WcaRankAverage> findWcaRankAveragesByPersonId(String personId) {
+    public List<WcaRankAverage> findBestResultsByPersonId(String personId) {
         return wcaRankAverageRepository.findWcaRankAveragesByPersonId(personId);
     }
 
     @Override
-    public WcaRankAverage findWcaRankAverageByPersonIdAndEventId(String personId, String eventId) {
+    public WcaRankAverage findBestResultByPersonIdAndEventId(String personId, String eventId) {
         return wcaRankAverageRepository.findWcaRankAverageByPersonIdAndEventId(personId,eventId);
     }
 }

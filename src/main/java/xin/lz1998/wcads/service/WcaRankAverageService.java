@@ -10,6 +10,6 @@ import java.util.List;
 public interface WcaRankAverageService {
     public void importData();
 
-    public List<WcaRankAverage> findWcaRankAveragesByPersonId(String personId);
-    public WcaRankAverage findWcaRankAverageByPersonIdAndEventId(String personId,String eventId);
+    public List<WcaRankAverage> findBestResultsByPersonId(String personId);
+    public WcaRankAverage findBestResultByPersonIdAndEventId(String personId, String eventId);
 }

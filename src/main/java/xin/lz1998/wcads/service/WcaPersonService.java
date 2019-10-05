@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface WcaPersonService {
     public void importData() ;
-    public WcaPerson findWcaPersonById(String id);
-    public List<WcaPerson> findWcaPeopleByNameContaining(String name);
+    public WcaPerson findPersonById(String id);
+    public List<WcaPerson> findPeopleByNameContaining(String name);
+    public List<WcaPerson> searchPeople(List<String> keywords);
 }

@@ -10,6 +10,6 @@ import java.util.List;
 public interface WcaRankSingleService {
     public void importData();
 
-    public List<WcaRankSingle> findWcaRankSinglesByPersonId(String personId);
-    public WcaRankSingle findWcaRankSingleByPersonIdAndEventId(String personId,String eventId);
+    public List<WcaRankSingle> findBestResultsByPersonId(String personId);
+    public WcaRankSingle findBestResultsByPersonIdAndEventId(String personId, String eventId);
 }
