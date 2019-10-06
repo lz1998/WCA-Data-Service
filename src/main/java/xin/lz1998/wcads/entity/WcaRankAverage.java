@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class WcaRankAverage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "PERSONID")
     private String personId;

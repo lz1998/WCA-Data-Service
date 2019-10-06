@@ -32,6 +32,7 @@ public class WcaServiceImpl implements WcaService {
         wcaPersonService.importData();
         wcaRankAverageService.importData();
         wcaRankSingleService.importData();
+        // TODO 这里可以导入其他数据，但是不常用，为了避免占内存就没写
     }
 
     @Override
