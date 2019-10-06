@@ -12,6 +12,7 @@ import java.sql.SQLException;
 @RequestMapping("/wca")
 @RestController
 public class WcaController {
+    // TODO 如果正在执行某件事，不执行新的事
     @Autowired
     WcaService wcaService;
     @RequestMapping("/importData")
