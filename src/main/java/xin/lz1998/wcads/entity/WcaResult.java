@@ -23,13 +23,13 @@ public class WcaResult {
     private String roundTypeId;
 
     @Column(name = "POS")
-    private long pos;
+    private Long pos;
 
     @Column(name = "BEST")
-    private long best;
+    private Long best;
 
     @Column(name = "AVERAGE")
-    private long average;
+    private Long average;
 
     @Column(name = "PERSONNAME")
     private String personName;
@@ -44,19 +44,19 @@ public class WcaResult {
     private String formatId;
 
     @Column(name = "VALUE1")
-    private long value1;
+    private Long value1;
 
     @Column(name = "VALUE2")
-    private long value2;
+    private Long value2;
 
     @Column(name = "VALUE3")
-    private long value3;
+    private Long value3;
 
     @Column(name = "VALUE4")
-    private long value4;
+    private Long value4;
 
     @Column(name = "VALUE5")
-    private long value5;
+    private Long value5;
 
     @Column(name = "REGIONALSINGLERECORD")
     private String regionalSingleRecord;
