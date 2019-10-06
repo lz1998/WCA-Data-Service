@@ -91,10 +91,10 @@ public class DataImportUtil {
 //    }
 
     public static void importData(String filepath, JpaRepository repository, Class entityClass) {
-        // TODO 读比赛有问题，部分比赛地址带引号，导致tsv不能正常读取
         try {
             Csv csv=new Csv();
-
+            // TODO 随便设置一个不可能出现的，防止引号影响读取TSV，不知道正确做法是什么
+            csv.setFieldDelimiter((char)127);
             csv.setFieldSeparatorRead('\t');
             ResultSet rs = csv.read(filepath,null,"utf8");
             System.out.println("删除");
@@ -132,12 +132,7 @@ public class DataImportUtil {
                     if(!paramClass.equals(String.class)){
                         // 如果所需类型不是字符串，转换成所需类型
                         Method strToObj= paramClass.getMethod("valueOf",String.class);
-                        try{
-
-                            value =strToObj.invoke(paramClass, value);
-                        }catch (InvocationTargetException e){
-                            System.out.println(e.toString());
-                        }
+                        value =strToObj.invoke(paramClass, value);
                     }
                     setMethod.invoke(entity, value);
                     break;
