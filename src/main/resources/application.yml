@@ -4,7 +4,8 @@ wca:
 #  path: "d:/wca/"
   export-zip: "WCA_export.tsv.zip"
   extract-path: "WCA_EXPORT/"
-
+server:
+  port: 2019
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -19,6 +20,5 @@ spring:
   h2:
     console:
       enabled: true
-server:
-  port: 2019
+
 

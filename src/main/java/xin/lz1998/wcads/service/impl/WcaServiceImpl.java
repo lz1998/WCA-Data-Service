@@ -14,9 +14,6 @@ import xin.lz1998.wcads.utils.DownloadUtil;
 import xin.lz1998.wcads.utils.UnZipUtil;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 
 @Service
 public class WcaServiceImpl implements WcaService {
