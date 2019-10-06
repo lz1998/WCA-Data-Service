@@ -91,6 +91,7 @@ public class DataImportUtil {
 //    }
 
     public static void importData(String filepath, JpaRepository repository, Class entityClass) {
+        // TODO 读比赛有问题，部分比赛地址带引号，导致tsv不能正常读取
         try {
             Csv csv=new Csv();
 
@@ -131,7 +132,12 @@ public class DataImportUtil {
                     if(!paramClass.equals(String.class)){
                         // 如果所需类型不是字符串，转换成所需类型
                         Method strToObj= paramClass.getMethod("valueOf",String.class);
-                        value =strToObj.invoke(paramClass, value);
+                        try{
+
+                            value =strToObj.invoke(paramClass, value);
+                        }catch (InvocationTargetException e){
+                            System.out.println(e.toString());
+                        }
                     }
                     setMethod.invoke(entity, value);
                     break;

@@ -5,6 +5,6 @@ import xin.lz1998.wcads.entity.WcaResult;
 import java.util.List;
 
 public interface WcaResultService {
-    public void importData() ;
+    void importData() ;
     List<WcaResult> findResultsByPersonIdAndEventId(String personId, String eventId);
 }

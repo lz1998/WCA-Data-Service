@@ -5,8 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
 public interface WcaService {
-    public void downloadWcaData();
-    public void extractWcaData();
-    public void importWcaData();
-    public void updateWcaData();
+    void downloadWcaData();
+    void extractWcaData();
+    void importWcaData();
+    void updateWcaData();
 }

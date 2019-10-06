@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface WcaRankAverageService {
-    public void importData();
+    void importData();
 
-    public List<WcaRankAverage> findBestResultsByPersonId(String personId);
-    public WcaRankAverage findBestResultByPersonIdAndEventId(String personId, String eventId);
+    List<WcaRankAverage> findBestResultsByPersonId(String personId);
+    WcaRankAverage findBestResultByPersonIdAndEventId(String personId, String eventId);
 }

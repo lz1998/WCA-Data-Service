@@ -24,7 +24,7 @@ public class WcaCompetition {
     @Column(name = "COUNTRYID")
     private String countryId;
 
-    @Column(name = "INFORMATION")
+    @Column(name = "INFORMATION",length = 2000)
     private String information;
 
     @Column(name = "YEAR")
@@ -45,10 +45,10 @@ public class WcaCompetition {
     @Column(name = "EVENTSPECS")
     private String eventSpecs;
 
-    @Column(name = "WCADELEGATE")
+    @Column(name = "WCADELEGATE",length = 1000)
     private String wcaDelegate;
 
-    @Column(name = "ORGANISER")
+    @Column(name = "ORGANISER",length = 1000)
     private String organiser;
 
     @Column(name = "VENUE")
