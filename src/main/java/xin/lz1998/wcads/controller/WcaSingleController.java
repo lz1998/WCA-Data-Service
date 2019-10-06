@@ -1,13 +1,14 @@
 package xin.lz1998.wcads.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xin.lz1998.wcads.entity.WcaRankSingle;
 import xin.lz1998.wcads.service.WcaRankSingleService;
 
 import java.util.List;
-
+@CrossOrigin("*")
 @RequestMapping("/wcaSingle")
 @RestController
 public class WcaSingleController {
