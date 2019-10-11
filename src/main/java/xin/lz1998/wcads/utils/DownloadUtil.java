@@ -14,20 +14,19 @@ public class DownloadUtil {
      * @param destFileName 下载文件名称
      * @param listener     下载监听
      */
+    private static boolean downloading=false;// TODO 有没有更好的写法
     public static void download(final String url, final String destFileName, final OnDownloadListener listener) {
+        if(downloading){
+            return;
+        }
+        downloading=true;// TODO 下载开始，改变状态，下载失败或成功改为false
         OkHttpClient okHttpClient=new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
-
         OkHttpClient client = new OkHttpClient();
- 
-        try {
-            Response response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
  
         //异步请求
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -35,6 +34,7 @@ public class DownloadUtil {
             public void onFailure(Call call, IOException e) {
                 // 下载失败监听回调
                 listener.onDownloadFailed(e);
+                downloading=false;// TODO 下载改变，刷新状态
             }
  
             @Override
@@ -63,6 +63,7 @@ public class DownloadUtil {
                     fos.flush();
                     //下载完成
                     listener.onDownloadSuccess(file);
+                    downloading=false; // TODO 下载改变，刷新状态
                 } catch (Exception e) {
                     listener.onDownloadFailed(e);
                 }finally {

@@ -28,6 +28,7 @@ import java.util.List;
 public class DataImportUtil {
     private static EntityManager entityManager;
     private static Logger logger= LoggerFactory.getLogger(DataImportUtil.class);
+    private static boolean importing=false;
 
     @Autowired
     public DataImportUtil(EntityManager entityManager) {
@@ -91,6 +92,10 @@ public class DataImportUtil {
 //    }
 
     public static void importData(String filepath, JpaRepository repository, Class entityClass) {
+        if(importing){
+            return;
+        }
+        importing=true;
         try {
             Csv csv=new Csv();
             // TODO 随便设置一个不可能出现的，防止引号影响读取TSV，不知道正确做法是什么
@@ -114,8 +119,10 @@ public class DataImportUtil {
                 repository.save(entity);
             }
             rs.close();
+            importing=false;
         } catch (Exception e) {
             e.printStackTrace();
+            importing=false;
         }
 
     }

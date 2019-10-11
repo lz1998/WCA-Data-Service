@@ -5,7 +5,7 @@ wca:
   export-zip: "WCA_export.tsv.zip"
   extract-path: "WCA_EXPORT/"
 server:
-  port: 2019
+  port: 5050
 spring:
   datasource:
     driver-class-name: org.h2.Driver
