@@ -11,6 +11,5 @@ import java.util.List;
 public interface WcaPersonService {
     void importData() ;
     WcaPerson findPersonById(String id);
-    List<WcaPerson> findPeopleByNameContaining(String name);
     List<WcaPerson> searchPeople(List<String> keywords);
 }

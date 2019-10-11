@@ -26,12 +26,6 @@ public class WcaPersonController {
     }
 
 
-
-    @RequestMapping("/findPeopleByNameContaining")
-    public List<WcaPerson> findPeopleByNameContaining(String name) {
-        return wcaPersonService.findPeopleByNameContaining(name);
-    }
-
     @RequestMapping("/searchPeople")
     public List<WcaPerson> searchPeople(String q) {
         String[] keywordArray=q.split(" ");

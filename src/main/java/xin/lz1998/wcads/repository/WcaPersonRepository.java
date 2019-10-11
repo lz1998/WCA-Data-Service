@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface WcaPersonRepository extends JpaRepository<WcaPerson,Integer>,WcaPersonSearchRepository {
     WcaPerson findWcaPersonById(String id);
-    List<WcaPerson> findWcaPeopleByNameContaining(String name);
-
 }
 

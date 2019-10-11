@@ -8,6 +8,7 @@ import xin.lz1998.wcads.entity.QWcaPerson;
 import xin.lz1998.wcads.entity.WcaPerson;
 import xin.lz1998.wcads.repository.WcaPersonSearchRepository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Repository
@@ -15,7 +16,7 @@ public class WcaPersonSearchRepositoryImpl implements WcaPersonSearchRepository 
     @Autowired
     JPAQueryFactory queryFactory;
     @Override
-    public List<WcaPerson> searchPeople(List<String> keywords) {
+    public List<WcaPerson> searchPeople(List<String> keywords,int limit) {
         // 关键词出现在名字或ID中
         QWcaPerson wcaPerson=QWcaPerson.wcaPerson;
         BooleanExpression booleanExpression=null;
@@ -30,6 +31,7 @@ public class WcaPersonSearchRepositoryImpl implements WcaPersonSearchRepository 
         }
         List<WcaPerson> personList =  queryFactory.selectFrom(wcaPerson)
                 .where(booleanExpression)
+                .limit(limit)
                 .fetch();
         return personList;
     }

@@ -32,14 +32,11 @@ public class WcaPersonServiceImpl implements WcaPersonService {
         return wcaPersonRepository.findWcaPersonById(id);
     }
 
-    @Override
-    public List<WcaPerson> findPeopleByNameContaining(String name) {
-        return wcaPersonRepository.findWcaPeopleByNameContaining(name);
-    }
 
     // 关键词出现在名字或ID中
     @Override
     public List<WcaPerson> searchPeople(List<String> keywords) {
-        return wcaPersonRepository.searchPeople(keywords);
+        // TODO 暂时只返回100个，以后做分页
+        return wcaPersonRepository.searchPeople(keywords,100);
     }
 }
