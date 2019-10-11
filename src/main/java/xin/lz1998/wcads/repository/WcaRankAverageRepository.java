@@ -6,6 +6,6 @@ import xin.lz1998.wcads.entity.WcaRankAverage;
 import java.util.List;
 
 public interface WcaRankAverageRepository extends JpaRepository<WcaRankAverage,Integer> {
-    public List<WcaRankAverage> findWcaRankAveragesByPersonId(String personId);
-    public WcaRankAverage findWcaRankAverageByPersonIdAndEventId(String personId,String eventId);
+    List<WcaRankAverage> findWcaRankAveragesByPersonId(String personId);
+    WcaRankAverage findWcaRankAverageByPersonIdAndEventId(String personId, String eventId);
 }

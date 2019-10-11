@@ -6,6 +6,6 @@ import xin.lz1998.wcads.entity.WcaRankSingle;
 import java.util.List;
 
 public interface WcaRankSingleRepository extends JpaRepository<WcaRankSingle, Integer> {
-    public List<WcaRankSingle> findWcaRankSinglesByPersonId(String personId);
-    public WcaRankSingle findWcaRankSingleByPersonIdAndEventId(String personId,String eventId);
+    List<WcaRankSingle> findWcaRankSinglesByPersonId(String personId);
+    WcaRankSingle findWcaRankSingleByPersonIdAndEventId(String personId, String eventId);
 }
