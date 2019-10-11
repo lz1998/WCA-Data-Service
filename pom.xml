@@ -10,7 +10,7 @@
     </parent>
     <groupId>xin.lz1998</groupId>
     <artifactId>wca-ds</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.5</version>
     <name>wca-ds</name>
     <description>Demo project for Spring Boot</description>
 
@@ -105,6 +105,9 @@
                         <imageTag>${project.version}</imageTag>
                         <imageTag>latest</imageTag>
                     </imageTags>
+                    <exposes>
+                        <expose>5050</expose>
+                    </exposes>
                     <baseImage>openjdk:8-jre</baseImage>
                     <cmd>["java", "-jar", "/${project.build.finalName}.jar"]</cmd>
                     <!-- copy the service's jar file from target into the root directory of the image -->
