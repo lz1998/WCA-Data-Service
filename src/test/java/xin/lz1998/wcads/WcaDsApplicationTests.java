@@ -1,5 +1,6 @@
 package xin.lz1998.wcads;
 
+import lombok.val;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,7 @@ public class WcaDsApplicationTests {
 //        System.out.println(ResultUtil.formatTime(1234,"333"));
 //        System.out.println("---------------");
 //        System.out.println(TimeZone.getTimeZone("Asia/Shanghai").getID());
+        val a="123";
     }
 
 }
