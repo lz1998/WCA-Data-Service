@@ -22,4 +22,9 @@ public class WcaCompetitionServiceImpl implements WcaCompetitionService {
         String filepath = Config.getWcaExtractPath() + FILENAME;
         DataImportUtil.importData(filepath, wcaCompetitionRepository, WcaCompetition.class);
     }
+
+    @Override
+    public WcaCompetition findWcaCompetitionById(String id){
+        return wcaCompetitionRepository.findWcaCompetitionById(id);
+    }
 }

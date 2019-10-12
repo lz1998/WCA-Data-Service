@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import xin.lz1998.wcads.Config;
-import xin.lz1998.wcads.service.WcaPersonService;
-import xin.lz1998.wcads.service.WcaRankAverageService;
-import xin.lz1998.wcads.service.WcaRankSingleService;
-import xin.lz1998.wcads.service.WcaService;
+import xin.lz1998.wcads.service.*;
 import xin.lz1998.wcads.utils.DownloadUtil;
 import xin.lz1998.wcads.utils.UnZipUtil;
 
@@ -24,15 +21,21 @@ public class WcaServiceImpl implements WcaService {
     private WcaRankAverageService wcaRankAverageService;
     @Autowired
     private WcaRankSingleService wcaRankSingleService;
+    @Autowired
+    private WcaCompetitionService wcaCompetitionService;
+    @Autowired
+    private WcaResultService wcaResultService;
     private Logger logger =LoggerFactory.getLogger(WcaServiceImpl.class);
 
     @Transactional
     @Override
     public void importWcaData() {
         wcaPersonService.importData();
+        wcaCompetitionService.importData();
         wcaRankAverageService.importData();
         wcaRankSingleService.importData();
         // TODO 这里可以导入其他数据，但是不常用，为了避免占内存就没写
+//        wcaResultService.importData();
     }
 
     @Override

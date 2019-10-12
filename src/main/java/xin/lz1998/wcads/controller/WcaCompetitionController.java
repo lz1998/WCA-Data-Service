@@ -18,4 +18,8 @@ public class WcaCompetitionController {
         wcaCompetitionService.importData();
         return "ok";
     }
+    @RequestMapping("/findWcaCompetitionById")
+    public Object findWcaCompetitionById(String id){
+        return wcaCompetitionService.findWcaCompetitionById(id);
+    }
 }
