@@ -12,6 +12,7 @@ import xin.lz1998.wcads.utils.UnZipUtil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.TimeZone;
 
 
 @Component
@@ -20,8 +21,8 @@ public class ScheduleTask {
     @Autowired
     WcaService wcaService;
 
-    @Scheduled(cron = "0 15 12 * * ?")
-    public void updateWcaData() throws SQLException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+    @Scheduled(cron = "0 15 12 * * ?",zone = "Asia/Shanghai")
+    public void updateWcaData(){
         logger.info("update wca data");
         wcaService.updateWcaData();
     }
