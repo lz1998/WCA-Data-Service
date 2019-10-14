@@ -64,6 +64,8 @@ public class DownloadUtil {
                     //下载完成
                     listener.onDownloadSuccess(file);
                     downloading=false; // TODO 下载改变，刷新状态
+//                   TODO  A connection to https://www.worldcubeassociation.org/ was leaked. Did you forget to close a response body? To see where this was allocated, set the OkHttpClient logger level to FINE: Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);
+
                 } catch (Exception e) {
                     listener.onDownloadFailed(e);
                 }finally {
