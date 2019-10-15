@@ -116,6 +116,13 @@ public class WcaServiceImpl implements WcaService {
 
     @Transactional
     @Override
+    public void importCompetitions() {
+        String filepath = Config.getWcaExtractPath() + COMPETITIONS_FILE;
+        DataImportUtil.importData(filepath, wcaCompetitionRepository, WcaCompetition.class);
+    }
+
+    @Transactional
+    @Override
     public void importRanksAverage() {
         String filepath= Config.getWcaExtractPath()+RANKS_AVERAGE_FILE;
         DataImportUtil.importData(filepath, wcaRankAverageRepository, WcaRankAverage.class);
@@ -133,12 +140,5 @@ public class WcaServiceImpl implements WcaService {
     public void importResults() {
         String filepath = Config.getWcaExtractPath() + RESULTS_FILE;
         DataImportUtil.importData(filepath, wcaResultRepository, WcaResult.class);
-    }
-
-    @Transactional
-    @Override
-    public void importCompetitions() {
-        String filepath = Config.getWcaExtractPath() + COMPETITIONS_FILE;
-        DataImportUtil.importData(filepath, wcaCompetitionRepository, WcaCompetition.class);
     }
 }

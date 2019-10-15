@@ -38,7 +38,7 @@ public class DownloadUtil {
             }
  
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, Response response) {
  
                 InputStream is = null;
                 byte[] buf = new byte[2048];
@@ -46,11 +46,12 @@ public class DownloadUtil {
                 FileOutputStream fos = null;
 
                 File file = new File(destFileName);
- 
+
+                ResponseBody responseBody = response.body();
                 try {
- 
-                    is = response.body().byteStream();
-                    long total = response.body().contentLength();
+
+                    is = responseBody.byteStream();
+                    long total = responseBody.contentLength();
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {
@@ -76,6 +77,9 @@ public class DownloadUtil {
                         }
                         if (fos != null) {
                             fos.close();
+                        }
+                        if(responseBody!=null){
+                            responseBody.close();
                         }
                     } catch (IOException e) {
  

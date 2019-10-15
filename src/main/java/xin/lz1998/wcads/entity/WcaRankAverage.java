@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "WCA_EXPORT_RANKSAVERAGE",
-        indexes = {@Index(name = "index_person_id",columnList = "PERSONID")})
+        indexes = {@Index(name = "index_ranks_average_person_id",columnList = "PERSONID")})
 public class WcaRankAverage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

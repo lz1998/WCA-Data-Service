@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "WCA_EXPORT_RESULTS",
-        indexes = {@Index(name = "index_person_id",columnList = "PERSONID")})
+        indexes = {@Index(name = "index_results_person_id",columnList = "PERSONID")})
 public class WcaResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

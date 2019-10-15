@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.io.BufferedReader;
@@ -106,8 +107,11 @@ public class DataImportUtil {
             System.out.println(repository.count());
             repository.deleteAllInBatch();
             int count=0;
+            if(!entityManager.isJoinedToTransaction()){
+                entityManager.joinTransaction();
+            }
             while (rs.next()) {
-                if(count++%10==0){
+                if(++count%10==0){
                     // 解决OOM问题
                     entityManager.flush();
                     entityManager.clear();
