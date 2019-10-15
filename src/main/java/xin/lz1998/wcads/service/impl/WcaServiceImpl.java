@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import xin.lz1998.wcads.Config;
 import xin.lz1998.wcads.entity.*;
 import xin.lz1998.wcads.repository.*;
@@ -31,12 +30,14 @@ public class WcaServiceImpl implements WcaService {
 
     @Autowired
     WcaResultRepository wcaResultRepository;
+    @Autowired
+    DataImportUtil dataImportUtil;
 
     private static final String PERSONS_FILE = "WCA_export_Persons.tsv";
-    private static final String COMPETITIONS_FILE = "WCA_export_Persons.tsv";
-    private static final String RANKS_AVERAGE_FILE = "WCA_export_Persons.tsv";
-    private static final String RANKS_SINGLE_FILE = "WCA_export_Persons.tsv";
-    private static final String RESULTS_FILE = "WCA_export_Persons.tsv";
+    private static final String COMPETITIONS_FILE = "WCA_export_Competitions.tsv";
+    private static final String RANKS_AVERAGE_FILE = "WCA_export_RanksAverage.tsv";
+    private static final String RANKS_SINGLE_FILE = "WCA_export_RanksSingle.tsv";
+    private static final String RESULTS_FILE = "WCA_export_Results.tsv";
 
     private Logger logger =LoggerFactory.getLogger(WcaServiceImpl.class);
 
@@ -96,7 +97,6 @@ public class WcaServiceImpl implements WcaService {
         UnZipUtil.unzip(Config.getWcaExportZip(),Config.getWcaExtractPath());
     }
 
-    @Transactional
     @Override
     public void importData() {
         importPersons();
@@ -107,38 +107,33 @@ public class WcaServiceImpl implements WcaService {
         // TODO 这里可以导入其他数据，但是不常用，为了避免占内存就没写
     }
 
-    @Transactional
     @Override
     public void importPersons() {
         String filepath = Config.getWcaExtractPath() + PERSONS_FILE;
-        DataImportUtil.importData(filepath, wcaPersonRepository, WcaPerson.class);
+        dataImportUtil.importData(filepath, wcaPersonRepository, WcaPerson.class);
     }
 
-    @Transactional
     @Override
     public void importCompetitions() {
         String filepath = Config.getWcaExtractPath() + COMPETITIONS_FILE;
-        DataImportUtil.importData(filepath, wcaCompetitionRepository, WcaCompetition.class);
+        dataImportUtil.importData(filepath, wcaCompetitionRepository, WcaCompetition.class);
     }
 
-    @Transactional
     @Override
     public void importRanksAverage() {
         String filepath= Config.getWcaExtractPath()+RANKS_AVERAGE_FILE;
-        DataImportUtil.importData(filepath, wcaRankAverageRepository, WcaRankAverage.class);
+        dataImportUtil.importData(filepath, wcaRankAverageRepository, WcaRankAverage.class);
     }
 
-    @Transactional
     @Override
     public void importRanksSingle() {
         String filepath= Config.getWcaExtractPath()+RANKS_SINGLE_FILE;
-        DataImportUtil.importData(filepath, wcaRankSingleRepository, WcaRankSingle.class);
+        dataImportUtil.importData(filepath, wcaRankSingleRepository, WcaRankSingle.class);
     }
 
-    @Transactional
     @Override
     public void importResults() {
         String filepath = Config.getWcaExtractPath() + RESULTS_FILE;
-        DataImportUtil.importData(filepath, wcaResultRepository, WcaResult.class);
+        dataImportUtil.importData(filepath, wcaResultRepository, WcaResult.class);
     }
 }
