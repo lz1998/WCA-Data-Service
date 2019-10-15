@@ -1,13 +1,14 @@
 package xin.lz1998.wcads.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xin.lz1998.wcads.entity.WcaResult;
 import xin.lz1998.wcads.service.WcaResultService;
-
-import java.util.List;
+import xin.lz1998.wcads.utils.PageUtil;
+import xin.lz1998.wcads.utils.ResultWrapperUtils;
 
 @CrossOrigin("*")
 @RequestMapping("/wcaResult")
@@ -17,14 +18,17 @@ public class WcaResultController {
     WcaResultService wcaResultService;
 
 
-    @RequestMapping("/importData")
-    public Object importData(){
-        wcaResultService.importData();
-        return "ok";
+    @RequestMapping("/findResultsByPersonIdAndEventId")
+    public Object findResultsByPersonIdAndEventId(String personId, String eventId, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageUtil.getPageable(pageNum, pageSize);
+        Page data = wcaResultService.findResultsByPersonIdAndEventId(personId, eventId, pageable);
+        return ResultWrapperUtils.pageResultWrapper(data);
     }
 
-    @RequestMapping("/findResultsByPersonIdAndEventId")
-    public List<WcaResult> findResultsByPersonIdAndEventId(String personId, String eventId) {
-        return wcaResultService.findResultsByPersonIdAndEventId(personId,eventId);
+    @RequestMapping("/findWcaResultsByPersonId")
+    public Object findWcaResultsByPersonId(String personId, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageUtil.getPageable(pageNum, pageSize);
+        Page data = wcaResultService.findWcaResultsByPersonId(personId, pageable);
+        return ResultWrapperUtils.pageResultWrapper(data);
     }
 }

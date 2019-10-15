@@ -1,10 +1,9 @@
 package xin.lz1998.wcads.service;
 
-import xin.lz1998.wcads.entity.WcaResult;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface WcaResultService {
-    void importData() ;
-    List<WcaResult> findResultsByPersonIdAndEventId(String personId, String eventId);
+    Page findResultsByPersonIdAndEventId(String personId, String eventId, Pageable pageable);
+    Page findWcaResultsByPersonId(String personId,Pageable pageable);
 }

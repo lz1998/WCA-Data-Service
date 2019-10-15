@@ -7,10 +7,12 @@ import xin.lz1998.wcads.entity.WcaRankSingle;
 import xin.lz1998.wcads.service.WcaRankAverageService;
 import xin.lz1998.wcads.service.WcaRankSingleService;
 import xin.lz1998.wcads.service.XRankService;
+import xin.lz1998.wcads.utils.PageUtil;
 
 import java.util.*;
 @Service
 public class XRankServiceImpl implements XRankService {
+    // TODO 还没检查
     @Autowired
     WcaRankSingleService wcaRankSingleService;
     @Autowired
@@ -21,7 +23,7 @@ public class XRankServiceImpl implements XRankService {
         Map<String,List<WcaRankAverage>> averageMap=new HashMap<>();
 
         for(String wcaId : wcaIds){
-            List<WcaRankSingle> bestSingleResults = wcaRankSingleService.findBestResultsByPersonId(wcaId);
+            List<WcaRankSingle> bestSingleResults = wcaRankSingleService.findBestResultsByPersonId(wcaId, PageUtil.getPageable(1,1000)).getContent();
             for(WcaRankSingle bestResult: bestSingleResults){
                 String eventId=bestResult.getEventId();
                 if(!singleMap.containsKey(eventId)){
@@ -31,7 +33,7 @@ public class XRankServiceImpl implements XRankService {
                 wcaRankSingles.add(bestResult);
             }
 
-            List<WcaRankAverage> bestAverageResults = wcaRankAverageService.findBestResultsByPersonId(wcaId);
+            List<WcaRankAverage> bestAverageResults = wcaRankAverageService.findBestResultsByPersonId(wcaId,PageUtil.getPageable(1,1000)).getContent();
             for(WcaRankAverage bestResult: bestAverageResults){
                 String eventId=bestResult.getEventId();
                 if(!averageMap.containsKey(eventId)){

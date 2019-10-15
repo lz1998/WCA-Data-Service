@@ -1,15 +1,11 @@
 package xin.lz1998.wcads.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import xin.lz1998.wcads.entity.WcaRankSingle;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
-import java.util.List;
-
 public interface WcaRankSingleService {
-    void importData();
+    Page findBestResultsByPersonId(String personId, Pageable pageable);
 
-    List<WcaRankSingle> findBestResultsByPersonId(String personId);
     WcaRankSingle findBestResultsByPersonIdAndEventId(String personId, String eventId);
 }

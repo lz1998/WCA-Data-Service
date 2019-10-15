@@ -1,38 +1,37 @@
 package xin.lz1998.wcads.repository.impl;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import xin.lz1998.wcads.entity.QWcaPerson;
 import xin.lz1998.wcads.entity.WcaPerson;
+import xin.lz1998.wcads.repository.WcaPersonJpaRepository;
 import xin.lz1998.wcads.repository.WcaPersonSearchRepository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
+@Primary
 @Repository
 public class WcaPersonSearchRepositoryImpl implements WcaPersonSearchRepository {
     @Autowired
     JPAQueryFactory queryFactory;
+    @Autowired
+    WcaPersonJpaRepository wcaPersonJpaRepository;
+
     @Override
-    public List<WcaPerson> searchPeople(List<String> keywords,int limit) {
+    public Page<WcaPerson> searchPeople(List<String> keywords, Pageable pageable) {
         // 关键词出现在名字或ID中
-        QWcaPerson wcaPerson=QWcaPerson.wcaPerson;
-        BooleanExpression booleanExpression=null;
-        for(String keyword :keywords){
-            if(booleanExpression==null){
-                booleanExpression=wcaPerson.name.contains(keyword).or(wcaPerson.id.contains(keyword));
-            }else{
-                booleanExpression=booleanExpression.and(
-                        wcaPerson.name.contains(keyword).or(wcaPerson.id.contains(keyword))
-                );
-            }
+        QWcaPerson wcaPerson = QWcaPerson.wcaPerson;
+        Predicate pre = wcaPerson.id.isNotNull();
+        for (String keyword : keywords) {
+            pre = ExpressionUtils.and(pre, wcaPerson.id.contains(keyword).or(wcaPerson.name.contains(keyword)));
         }
-        List<WcaPerson> personList =  queryFactory.selectFrom(wcaPerson)
-                .where(booleanExpression)
-                .limit(limit)
-                .fetch();
-        return personList;
+        Page<WcaPerson> result = wcaPersonJpaRepository.findAll(pre, pageable);
+        return result;
     }
 }

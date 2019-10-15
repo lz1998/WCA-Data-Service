@@ -10,7 +10,7 @@
     </parent>
     <groupId>xin.lz1998</groupId>
     <artifactId>wca-ds</artifactId>
-    <version>0.0.11</version>
+    <version>0.0.12</version>
     <name>wca-ds</name>
     <description>Demo project for Spring Boot</description>
 
@@ -84,6 +84,12 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
+        </dependency>
+        <!--json-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.59</version>
         </dependency>
     </dependencies>
 

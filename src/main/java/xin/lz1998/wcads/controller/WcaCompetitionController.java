@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import xin.lz1998.wcads.entity.WcaCompetition;
 import xin.lz1998.wcads.service.WcaCompetitionService;
+import xin.lz1998.wcads.utils.ResultWrapperUtils;
 
 @CrossOrigin("*")
 @RequestMapping("/wcaCompetition")
@@ -13,13 +15,9 @@ public class WcaCompetitionController {
     @Autowired
     WcaCompetitionService wcaCompetitionService;
 
-    @RequestMapping("/importData")
-    public Object importData(){
-        wcaCompetitionService.importData();
-        return "ok";
-    }
     @RequestMapping("/findCompetitionById")
     public Object findWcaCompetitionById(String id){
-        return wcaCompetitionService.findWcaCompetitionById(id);
+        WcaCompetition data=wcaCompetitionService.findWcaCompetitionById(id);
+        return ResultWrapperUtils.resultWrapper(data);
     }
 }

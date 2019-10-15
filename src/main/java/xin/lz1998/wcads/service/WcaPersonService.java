@@ -1,15 +1,14 @@
 package xin.lz1998.wcads.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import xin.lz1998.wcads.entity.WcaPerson;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
 import java.util.List;
 
 
 public interface WcaPersonService {
-    void importData() ;
     WcaPerson findPersonById(String id);
-    List<WcaPerson> searchPeople(List<String> keywords);
+
+    Page searchPeople(List<String> keywords, Pageable pageable);
 }

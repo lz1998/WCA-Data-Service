@@ -5,14 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import xin.lz1998.wcads.Config;
 import xin.lz1998.wcads.service.WcaService;
-import xin.lz1998.wcads.utils.DownloadUtil;
-import xin.lz1998.wcads.utils.UnZipUtil;
-
-import java.lang.reflect.InvocationTargetException;
-import java.sql.SQLException;
-import java.util.TimeZone;
 
 
 @Component
@@ -24,6 +17,6 @@ public class ScheduleTask {
     @Scheduled(cron = "0 15 12 * * ?",zone = "Asia/Shanghai")
     public void updateWcaData(){
         logger.info("update wca data");
-        wcaService.updateWcaData();
+        wcaService.updateData();
     }
 }
