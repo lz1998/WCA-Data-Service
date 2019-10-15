@@ -2,7 +2,7 @@
 运行就能用  
 首次启动手动调用接口更新wca数据，以后每天中午12:15自动更新数据  
 Windows可通过右下角托盘退出程序
-## 参数：
+## 运行参数：
 - server.port 端口号默认5050
 - wca.path wca相关数据保存路径(linux和Windows不一样，默认~/wca)
 - wca.export-zip wca导出zip的名字
@@ -11,7 +11,7 @@ Windows可通过右下角托盘退出程序
 
 
 ## 接口
-
+- 有多个返回结果的接口，可以加参数pageNum(default=0),pageSize(default=10,max=1000)
 ### 根据关键词搜人(WCA ID或名字中出现)
 http://apiwca.lz1998.xin/wcaPerson/searchPeople?q=李政 2016
 

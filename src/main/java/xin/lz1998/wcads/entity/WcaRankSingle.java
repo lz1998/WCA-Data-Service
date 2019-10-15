@@ -6,7 +6,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "WCA_EXPORT_RANKSSINGLE")
+@Table(name = "WCA_EXPORT_RANKSSINGLE",
+        indexes = {@Index(name = "index_person_id",columnList = "PERSONID")})
 public class WcaRankSingle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
