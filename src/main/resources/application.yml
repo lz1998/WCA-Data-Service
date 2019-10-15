@@ -19,6 +19,5 @@ spring:
     show-sql: false
   h2:
     console:
-      enabled: true
-
+      enabled: false
 

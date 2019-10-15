@@ -18,7 +18,7 @@ public class WcaResultServiceImpl implements WcaResultService {
     }
 
     @Override
-    public Page findWcaResultsByPersonId(String personId, Pageable pageable) {
+    public Page findResultsByPersonId(String personId, Pageable pageable) {
         return wcaResultRepository.findWcaResultsByPersonId(personId,pageable);
     }
 }

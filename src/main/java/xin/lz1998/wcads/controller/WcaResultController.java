@@ -25,10 +25,10 @@ public class WcaResultController {
         return ResultWrapperUtils.pageResultWrapper(data);
     }
 
-    @RequestMapping("/findWcaResultsByPersonId")
-    public Object findWcaResultsByPersonId(String personId, Integer pageNum, Integer pageSize) {
+    @RequestMapping("/findResultsByPersonId")
+    public Object findResultsByPersonId(String personId, Integer pageNum, Integer pageSize) {
         Pageable pageable = PageUtil.getPageable(pageNum, pageSize);
-        Page data = wcaResultService.findWcaResultsByPersonId(personId, pageable);
+        Page data = wcaResultService.findResultsByPersonId(personId, pageable);
         return ResultWrapperUtils.pageResultWrapper(data);
     }
 }

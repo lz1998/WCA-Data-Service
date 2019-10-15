@@ -13,7 +13,7 @@ public class WcaCompetitionServiceImpl implements WcaCompetitionService {
 
 
     @Override
-    public WcaCompetition findWcaCompetitionById(String id) {
+    public WcaCompetition findCompetitionById(String id) {
         return wcaCompetitionRepository.findWcaCompetitionById(id);
     }
 }
