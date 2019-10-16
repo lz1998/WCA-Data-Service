@@ -29,7 +29,7 @@ public class WcaPersonSearchRepositoryImpl implements WcaPersonSearchRepository 
         QWcaPerson wcaPerson = QWcaPerson.wcaPerson;
         Predicate pre = wcaPerson.id.isNotNull();
         for (String keyword : keywords) {
-            pre = ExpressionUtils.and(pre, wcaPerson.id.contains(keyword).or(wcaPerson.name.contains(keyword)));
+            pre = ExpressionUtils.and(pre, wcaPerson.id.containsIgnoreCase(keyword).or(wcaPerson.name.containsIgnoreCase(keyword)));
         }
         Page<WcaPerson> result = wcaPersonJpaRepository.findAll(pre, pageable);
         return result;
