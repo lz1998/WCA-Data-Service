@@ -9,7 +9,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:${wca.path}/db;CACHE_SIZE=10240
+    url: jdbc:h2:file:${wca.path}/db;CACHE_SIZE=10240;MV_STORE=false
 #    url: jdbc:h2:mem:wca #需要500M内存
     username: root
     password: 123
