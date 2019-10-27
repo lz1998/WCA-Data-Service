@@ -10,7 +10,7 @@ public class PageUtil {
             pageNum=0;
         }
         if(pageSize==null){
-            pageSize=10;
+            pageSize=100;
         }
         if(pageSize>1000){
             pageSize=PAGE_SIZE_LIMIT;

@@ -1,6 +1,8 @@
 package xin.lz1998.wcads.utils;
 
 import okhttp3.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -15,8 +17,10 @@ public class DownloadUtil {
      * @param listener     下载监听
      */
     private static boolean downloading=false;// TODO 有没有更好的写法
+    private static Logger logger= LoggerFactory.getLogger(DownloadUtil.class);
     public static void download(final String url, final String destFileName, final OnDownloadListener listener) {
         if(downloading){
+            logger.info("download ignore");
             return;
         }
         downloading=true;// TODO 下载开始，改变状态，下载失败或成功改为false
@@ -33,8 +37,8 @@ public class DownloadUtil {
             @Override
             public void onFailure(Call call, IOException e) {
                 // 下载失败监听回调
+                downloading=false;
                 listener.onDownloadFailed(e);
-                downloading=false;// TODO 下载改变，刷新状态
             }
  
             @Override
@@ -63,14 +67,15 @@ public class DownloadUtil {
                     }
                     fos.flush();
                     //下载完成
+                    downloading=false;
                     listener.onDownloadSuccess(file);
-                    downloading=false; // TODO 下载改变，刷新状态
 //                   TODO  A connection to https://www.worldcubeassociation.org/ was leaked. Did you forget to close a response body? To see where this was allocated, set the OkHttpClient logger level to FINE: Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);
 
                 } catch (Exception e) {
+                    downloading=false;
                     listener.onDownloadFailed(e);
                 }finally {
- 
+                    downloading=false;
                     try {
                         if (is != null) {
                             is.close();

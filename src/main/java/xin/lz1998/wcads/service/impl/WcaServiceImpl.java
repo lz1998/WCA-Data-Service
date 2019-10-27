@@ -100,7 +100,7 @@ public class WcaServiceImpl implements WcaService {
     @Override
     public void importData() {
         importPersons();
-        importCompetitions();
+//        importCompetitions();
         importRanksAverage();
         importRanksSingle();
 //        importResults();

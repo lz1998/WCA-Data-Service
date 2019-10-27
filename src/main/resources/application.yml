@@ -5,11 +5,11 @@ wca:
   export-zip: "WCA_export.tsv.zip"
   extract-path: "WCA_EXPORT/"
 server:
-  port: 5050
+  port: 80
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:${wca.path}/db;CACHE_SIZE=10240;MV_STORE=false
+    url: jdbc:h2:file:${wca.path}/db;CACHE_SIZE=131072;MV_STORE=false
 #    url: jdbc:h2:mem:wca #需要500M内存
     username: root
     password: 123
