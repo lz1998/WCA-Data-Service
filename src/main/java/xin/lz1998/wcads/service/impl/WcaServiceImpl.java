@@ -100,10 +100,10 @@ public class WcaServiceImpl implements WcaService {
     @Override
     public void importData() {
         importPersons();
-//        importCompetitions();
+        importCompetitions();
         importRanksAverage();
         importRanksSingle();
-//        importResults();
+        importResults();
         // TODO 这里可以导入其他数据，但是不常用，为了避免占内存就没写
     }
 
