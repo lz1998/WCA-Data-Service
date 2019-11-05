@@ -110,30 +110,30 @@ public class WcaServiceImpl implements WcaService {
     @Override
     public void importPersons() {
         String filepath = Config.getWcaExtractPath() + PERSONS_FILE;
-        dataImportUtil.importData(filepath, wcaPersonRepository, WcaPerson.class);
+        dataImportUtil.importData(filepath, WcaPerson.class);
     }
 
     @Override
     public void importCompetitions() {
         String filepath = Config.getWcaExtractPath() + COMPETITIONS_FILE;
-        dataImportUtil.importData(filepath, wcaCompetitionRepository, WcaCompetition.class);
+        dataImportUtil.importData(filepath, WcaCompetition.class);
     }
 
     @Override
     public void importRanksAverage() {
         String filepath= Config.getWcaExtractPath()+RANKS_AVERAGE_FILE;
-        dataImportUtil.importData(filepath, wcaRankAverageRepository, WcaRankAverage.class);
+        dataImportUtil.importData(filepath, WcaRankAverage.class);
     }
 
     @Override
     public void importRanksSingle() {
         String filepath= Config.getWcaExtractPath()+RANKS_SINGLE_FILE;
-        dataImportUtil.importData(filepath, wcaRankSingleRepository, WcaRankSingle.class);
+        dataImportUtil.importData(filepath, WcaRankSingle.class);
     }
 
     @Override
     public void importResults() {
         String filepath = Config.getWcaExtractPath() + RESULTS_FILE;
-        dataImportUtil.importData(filepath, wcaResultRepository, WcaResult.class);
+        dataImportUtil.importData(filepath, WcaResult.class);
     }
 }

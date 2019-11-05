@@ -3,17 +3,18 @@ package xin.lz1998.wcads.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
+@IdClass(WcaRankSingleKey.class)
 @Table(name = "WCA_EXPORT_RANKSSINGLE",
         indexes = {@Index(name = "index_ranks_single_person_id",columnList = "PERSONID")})
-public class WcaRankSingle {
+public class WcaRankSingle implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name = "PERSONID")
     private String personId;
+    @Id
     @Column(name = "EVENTID")
     private String eventId;
     @Column(name = "BEST")

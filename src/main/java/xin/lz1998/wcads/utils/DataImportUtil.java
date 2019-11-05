@@ -80,7 +80,7 @@ public class DataImportUtil {
 //    }
 
     @Transactional
-    public void importData(String filepath, JpaRepository repository, Class entityClass) {
+    public void importData(String filepath, Class entityClass) {
         if (importing) {
             return;
         }
@@ -91,22 +91,27 @@ public class DataImportUtil {
             csv.setFieldDelimiter((char) 127);
             csv.setFieldSeparatorRead('\t');
             ResultSet rs = csv.read(filepath, null, "utf8");
-            System.out.println("删除");
-            System.out.println(repository.count());
-            repository.deleteAllInBatch();
+//            System.out.println("删除");
+//            System.out.println(repository.count());
+//            repository.deleteAllInBatch();
             int count = 0;
             while (rs.next()) {
-                if (++count % 10 == 0) {
+                //读取结果转换成entity
+                Object entity = rs2Entity(rs, entityClass);
+
+                //存入数据库
+//                repository.save(entity);
+                // 好像速度更快？
+                entityManager.merge(entity);
+                if (++count % 100 == 0) {
                     // 解决OOM问题
                     entityManager.flush();
                     entityManager.clear();
+                    logger.info("import {} {} rows", entityClass.getSimpleName(),count);
                 }
-                //读取结果转换成entity
-                Object entity = rs2Entity(rs, entityClass);
-                logger.info(entity.toString());
-                //存入数据库
-                repository.save(entity);
             }
+            entityManager.flush();
+            entityManager.clear();
             rs.close();
             importing = false;
         } catch (Exception e) {

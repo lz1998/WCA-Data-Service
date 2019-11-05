@@ -4,22 +4,21 @@ package xin.lz1998.wcads.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
+@IdClass(WcaResultKey.class)
 @Table(name = "WCA_EXPORT_RESULTS",
         indexes = {@Index(name = "index_results_person_id",columnList = "PERSONID")})
-public class WcaResult {
+public class WcaResult implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(name = "COMPETITIONID")
     private String competitionId;
-
+    @Id
     @Column(name = "EVENTID")
     private String eventId;
-
+    @Id
     @Column(name = "ROUNDTYPEID")
     private String roundTypeId;
 
@@ -35,6 +34,7 @@ public class WcaResult {
     @Column(name = "PERSONNAME")
     private String personName;
 
+    @Id
     @Column(name = "PERSONID")
     private String personId;
 

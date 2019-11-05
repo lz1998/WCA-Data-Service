@@ -3,7 +3,7 @@
 首次启动手动调用接口更新wca数据，以后每天中午12:15自动更新数据  
 Windows可通过右下角托盘退出程序
 ## 运行参数：
-- server.port 端口号默认5050
+- server.port 端口号默认80
 - wca.path wca相关数据保存路径(linux和Windows不一样，默认~/wca)
 - wca.export-zip wca导出zip的名字
 - wca.url wca导出zip的下载地址
