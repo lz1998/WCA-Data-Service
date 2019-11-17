@@ -4,7 +4,6 @@ import org.h2.tools.Csv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,9 +106,10 @@ public class DataImportUtil {
                     // 解决OOM问题
                     entityManager.flush();
                     entityManager.clear();
-                    logger.info("import {} {} rows", entityClass.getSimpleName(),count);
+                    logger.info("import {} {} rows", entityClass.getSimpleName(), count);
                 }
             }
+            logger.info("import {} complete",entityClass.getSimpleName());
             entityManager.flush();
             entityManager.clear();
             rs.close();

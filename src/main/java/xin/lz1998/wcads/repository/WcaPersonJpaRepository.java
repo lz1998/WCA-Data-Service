@@ -5,7 +5,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import xin.lz1998.wcads.entity.WcaPerson;
 
 
-public interface WcaPersonJpaRepository extends JpaRepository<WcaPerson, Integer>, QuerydslPredicateExecutor<WcaPerson> {
+public interface WcaPersonJpaRepository extends JpaRepository<WcaPerson, String>, QuerydslPredicateExecutor<WcaPerson> {
     WcaPerson findWcaPersonById(String id);
 }
 
