@@ -62,7 +62,7 @@ public class WcaServiceImpl implements WcaService {
 
             @Override
             public void onDownloadFailed(Exception e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         });
 
@@ -88,7 +88,7 @@ public class WcaServiceImpl implements WcaService {
 
             @Override
             public void onDownloadFailed(Exception e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         });
     }
