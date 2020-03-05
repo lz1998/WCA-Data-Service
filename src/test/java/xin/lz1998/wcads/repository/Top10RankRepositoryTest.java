@@ -46,4 +46,23 @@ public class Top10RankRepositoryTest {
         assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Mulun Yin (阴目仑)");
     }
 
+    @Test
+    public void shouldReturnTop10TwoByTwoAverageResultInUSAForFemale() {
+        // given
+        String event = "222";
+        String region = "USA";
+        String type = "avg";
+        String gender = "f";
+
+        // then
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10Rank(event, region, type, gender);
+
+        // then
+        assertThat(top10Rank).hasSize(10);
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("11.98"));
+        assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Uma Unni");
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("3.06"));
+        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Melissa Su");
+    }
+
 }
