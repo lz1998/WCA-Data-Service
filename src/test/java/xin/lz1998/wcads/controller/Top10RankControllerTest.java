@@ -1,5 +1,6 @@
 package xin.lz1998.wcads.controller;
 
+import com.google.common.collect.Lists;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,13 +9,15 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
+import xin.lz1998.wcads.repository.Top10RankRepository;
 import xin.lz1998.wcads.service.Top10RankService;
+import xin.lz1998.wcads.service.impl.Top10RankServiceImpl;
 
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
@@ -22,11 +25,12 @@ import static org.springframework.http.HttpStatus.OK;
 @RunWith(MockitoJUnitRunner.class)
 public class Top10RankControllerTest extends MockMvcBaseTest {
 
-    private Top10RankService top10RankService = spy(Top10RankService.class);
+    private Top10RankRepository top10RankRepository = mock(Top10RankRepository.class);
 
     @Before
     public void setUp() {
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(new Top10RankController(top10RankService)).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
+                new Top10RankController(new Top10RankServiceImpl(top10RankRepository))).build();
         RestAssuredMockMvc.mockMvc(mockMvc);
     }
 
@@ -41,7 +45,8 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
 
     @Test
     public void shouldReturnTop10RankInChinaForAllGenderWhenJustPassEventId() {
-        doReturn(Top10ResultDTO.builder().build()).when(top10RankService).searchTop10Rank(any(), any(), any(), any());
+        doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
+                .when(top10RankRepository).findTop10Rank(any(), any(), any(), any());
 
         given()
                 .when()
@@ -50,6 +55,6 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankService).searchTop10Rank("333", "nr", "sin", "all");
+        verify(top10RankRepository).findTop10Rank("333", "nr", "sin", "all");
     }
 }

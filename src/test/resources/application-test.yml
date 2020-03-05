@@ -1,0 +1,8 @@
+# replace configuration below to run the repository tests
+# make sure all table name conform to @Table definition, and make sure the user have privilege to create index
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:9306/wca
+    username: readonly
+    password: readonly
