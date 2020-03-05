@@ -1,8 +1,7 @@
 package xin.lz1998.wcads.repository.impl;
 
-import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringPath;
@@ -43,18 +42,22 @@ public class Top10RankRepositoryImpl implements Top10RankRepository {
                 .from(rankTable)
                 .innerJoin(wcaPerson)
                 .on(rankTablePersonIdField.eq(wcaPerson.id))
-                .where(buildWhereExpression(event, region, gender, rankTableEventIdField))
+                .where(buildWhereExpression(event, region, gender, rankTableEventIdField, rankTableCountryRankField))
                 .orderBy(rankTableCountryRankField.asc())
                 .limit(TOP_NUMBER)
                 .fetch();
     }
 
-    private BooleanExpression buildWhereExpression(String event, String region, String gender, StringPath eventId) {
-        BooleanExpression expression = eventId.eq(event)
-                .and(wcaPerson.countryId.eq(region));
+    private BooleanBuilder buildWhereExpression(String event, String region, String gender, StringPath eventId,
+                                                NumberPath<Integer> rankTableCountryRankField) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(eventId.eq(event))
+                .and(wcaPerson.countryId.eq(region))
+                .and(wcaPerson.subId.ne(2))
+                .and(rankTableCountryRankField.ne(0));
         if (!"all".equals(gender)) {
-            expression.and(wcaPerson.gender.eq(gender));
+            booleanBuilder.and(wcaPerson.gender.eq(gender));
         }
-        return expression;
+        return booleanBuilder;
     }
 }

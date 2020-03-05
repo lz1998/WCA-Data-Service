@@ -42,8 +42,8 @@ public class Top10RankRepositoryTest {
         assertThat(top10Rank).hasSize(10);
         assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("3.47"));
         assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Yusheng Du (杜宇生)");
-        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("5.66"));
-        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Mulun Yin (阴目仑)");
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("5.77"));
+        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Dawei Xu (徐大卫)");
     }
 
     @Test
@@ -59,10 +59,10 @@ public class Top10RankRepositoryTest {
 
         // then
         assertThat(top10Rank).hasSize(10);
-        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("11.98"));
-        assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Uma Unni");
-        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("3.06"));
-        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Melissa Su");
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("1.76"));
+        assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Kymberlyn Calderon");
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("3.09"));
+        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Isabella Corona");
     }
 
     @Test
