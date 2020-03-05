@@ -65,4 +65,23 @@ public class Top10RankRepositoryTest {
         assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Melissa Su");
     }
 
+    @Test
+    public void shouldReturnTop10MinxAverageResultInSouthKoreanForAllGender() {
+        // given
+        String event = "minx";
+        String region = "Korea";
+        String type = "avg";
+        String gender = "all";
+
+        // then
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10Rank(event, region, type, gender);
+
+        // then
+        assertThat(top10Rank).hasSize(10);
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("32.03"));
+        assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Yu Da-Hyun (유다현)");
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("52.43"));
+        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Kim Min (김민)");
+    }
+
 }

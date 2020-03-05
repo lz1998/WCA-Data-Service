@@ -2,6 +2,7 @@ package xin.lz1998.wcads.repository.impl;
 
 import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringPath;
@@ -42,11 +43,18 @@ public class Top10RankRepositoryImpl implements Top10RankRepository {
                 .from(rankTable)
                 .innerJoin(wcaPerson)
                 .on(rankTablePersonIdField.eq(wcaPerson.id))
-                .where(rankTableEventIdField.eq(event)
-                        .and(wcaPerson.countryId.eq(region))
-                        .and(wcaPerson.gender.eq(gender)))
+                .where(buildWhereExpression(event, region, gender, rankTableEventIdField))
                 .orderBy(rankTableCountryRankField.asc())
                 .limit(TOP_NUMBER)
                 .fetch();
+    }
+
+    private BooleanExpression buildWhereExpression(String event, String region, String gender, StringPath eventId) {
+        BooleanExpression expression = eventId.eq(event)
+                .and(wcaPerson.countryId.eq(region));
+        if (!"all".equals(gender)) {
+            expression.and(wcaPerson.gender.eq(gender));
+        }
+        return expression;
     }
 }
