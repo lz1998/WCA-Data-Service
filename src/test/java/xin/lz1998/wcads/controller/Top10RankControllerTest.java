@@ -12,12 +12,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
-import xin.lz1998.wcads.domain.ResultType;
 import xin.lz1998.wcads.domain.converter.EventConverter;
 import xin.lz1998.wcads.domain.converter.GenderConverter;
 import xin.lz1998.wcads.domain.converter.ResultTypeConverter;
 import xin.lz1998.wcads.repository.Top10RankRepository;
-import xin.lz1998.wcads.service.Top10RankService;
 import xin.lz1998.wcads.service.impl.Top10RankServiceImpl;
 
 import static io.restassured.http.ContentType.JSON;
@@ -60,7 +58,7 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
     @Test
     public void shouldReturnTop10RankInChinaForAllGenderWhenJustPassEventId() {
         doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
-                .when(top10RankRepository).findTop10Rank(any(), any(), any(), any());
+                .when(top10RankRepository).findTop10RankForCountryAndSingleResult(any(), any(), any());
 
         given()
                 .when()
@@ -69,6 +67,6 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10Rank(Event.RUBIKS_CUBE, "nr", ResultType.SINGLE, Gender.ALL);
+        verify(top10RankRepository).findTop10RankForCountryAndSingleResult(Event.RUBIKS_CUBE, "nr", Gender.ALL);
     }
 }

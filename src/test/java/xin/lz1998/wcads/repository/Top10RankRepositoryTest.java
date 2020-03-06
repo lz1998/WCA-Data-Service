@@ -10,13 +10,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
-import xin.lz1998.wcads.domain.ResultType;
-import xin.lz1998.wcads.entity.WcaRankSingle;
-import xin.lz1998.wcads.entity.WcaRankSingleKey;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static xin.lz1998.wcads.domain.Event.MEGAMINX;
@@ -25,8 +21,6 @@ import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE;
 import static xin.lz1998.wcads.domain.Gender.ALL;
 import static xin.lz1998.wcads.domain.Gender.FEMALE;
 import static xin.lz1998.wcads.domain.Gender.MALE;
-import static xin.lz1998.wcads.domain.ResultType.AVERAGE;
-import static xin.lz1998.wcads.domain.ResultType.SINGLE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -43,11 +37,10 @@ public class Top10RankRepositoryTest {
         // given
         Event event = RUBIKS_CUBE;
         String region = "China";
-        ResultType type = SINGLE;
         Gender gender = MALE;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10Rank(event, region, type, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountryAndSingleResult(event, region, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);
@@ -62,11 +55,10 @@ public class Top10RankRepositoryTest {
         // given
         Event event = POCKET_CUBE;
         String region = "USA";
-        ResultType type = AVERAGE;
         Gender gender = FEMALE;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10Rank(event, region, type, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountryAndAverageResult(event, region, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);
@@ -81,11 +73,10 @@ public class Top10RankRepositoryTest {
         // given
         Event event = MEGAMINX;
         String region = "Korea";
-        ResultType type = AVERAGE;
         Gender gender = ALL;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10Rank(event, region, type, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountryAndAverageResult(event, region, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);
