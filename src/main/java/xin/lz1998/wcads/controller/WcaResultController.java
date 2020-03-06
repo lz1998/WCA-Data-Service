@@ -31,4 +31,8 @@ public class WcaResultController {
         Page data = wcaResultService.findResultsByPersonId(personId, pageable);
         return ResultWrapperUtils.pageResultWrapper(data);
     }
+    @RequestMapping("/findResultsByPersonIdAndEventIdOrderByDateAndRound")
+    public Object findResultsByPersonIdAndEventIdOrderByDateAndRound(String personId,String eventId){
+        return ResultWrapperUtils.resultWrapper(wcaResultService.findResultsByPersonIdAndEventIdOrderByDateAndRound(personId,eventId));
+    }
 }
