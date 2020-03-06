@@ -3,6 +3,6 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:9306/wca
-    username: readonly
-    password: readonly
+    url: jdbc:mysql://db.lz1998.xin:13306/sunshy360
+    username: sunshy360
+    password: 123456
