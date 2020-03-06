@@ -11,6 +11,8 @@ import xin.lz1998.wcads.service.Top10RankService;
 
 import java.util.List;
 
+import static xin.lz1998.wcads.domain.Region.WORLD_RECORD;
+
 @Service
 public class Top10RankServiceImpl implements Top10RankService {
     private Top10RankRepository top10RankRepository;
@@ -22,10 +24,18 @@ public class Top10RankServiceImpl implements Top10RankService {
     @Override
     public Top10ResultDTO searchTop10Rank(Event event, String region, ResultType type, Gender gender) {
         List<Top10ResultDTO.Top10ItemDTO> top10Rank = Lists.newArrayList();
-        if (type.equals(ResultType.SINGLE)) {
-            top10Rank = top10RankRepository.findTop10RankForCountryAndSingleResult(event, region, gender);
-        } else if (type.equals(ResultType.AVERAGE)) {
-            top10Rank = top10RankRepository.findTop10RankForCountryAndAverageResult(event, region, gender);
+        if (region.equals(WORLD_RECORD.getBriefName())) {
+            if (type.equals(ResultType.SINGLE)) {
+                top10Rank = top10RankRepository.findTop10RankSingleResultForWholeWorld(event, gender);
+            } else if (type.equals(ResultType.AVERAGE)) {
+                top10Rank = top10RankRepository.findTop10RankAverageResultForWholeWorld(event, gender);
+            }
+        } else {
+            if (type.equals(ResultType.SINGLE)) {
+                top10Rank = top10RankRepository.findTop10RankForCountryAndSingleResult(event, region, gender);
+            } else if (type.equals(ResultType.AVERAGE)) {
+                top10Rank = top10RankRepository.findTop10RankForCountryAndAverageResult(event, region, gender);
+            }
         }
         return Top10ResultDTO.builder().top10ItemDTOList(top10Rank).build();
     }

@@ -69,4 +69,19 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
 
         verify(top10RankRepository).findTop10RankForCountryAndSingleResult(Event.RUBIKS_CUBE, "nr", Gender.ALL);
     }
+
+    @Test
+    public void shouldReturnTop10RankForWholeWorldForAllGender() {
+        doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
+                .when(top10RankRepository).findTop10RankAverageResultForWholeWorld(any(), any());
+
+        given()
+                .when()
+                .get("/top10rank?event=333&region=wr&type=avg")
+                .then()
+                .statusCode(OK.value())
+                .contentType(JSON);
+
+        verify(top10RankRepository).findTop10RankAverageResultForWholeWorld(Event.RUBIKS_CUBE, Gender.ALL);
+    }
 }

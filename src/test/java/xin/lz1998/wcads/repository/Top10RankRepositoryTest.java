@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static xin.lz1998.wcads.domain.Event.MEGAMINX;
 import static xin.lz1998.wcads.domain.Event.POCKET_CUBE;
 import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE;
+import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE_BLINDFOLDED;
 import static xin.lz1998.wcads.domain.Gender.ALL;
 import static xin.lz1998.wcads.domain.Gender.FEMALE;
 import static xin.lz1998.wcads.domain.Gender.MALE;
@@ -84,6 +85,24 @@ public class Top10RankRepositoryTest {
         assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Yu Da-Hyun (유다현)");
         assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("52.43"));
         assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Kim Min (김민)");
+    }
+
+    @Test
+    public void shouldReturnTop10RubiksCubeBlindfoldedSingleResultForWholeWorldForAllGender() {
+        // given
+        Event event = RUBIKS_CUBE_BLINDFOLDED;
+        String region = "wr";
+        Gender gender = ALL;
+
+        // then
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankSingleResultForWholeWorld(event, gender);
+
+        // then
+        assertThat(top10Rank).hasSize(10);
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("15.50"));
+        assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Max Hilliard");
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("17.52"));
+        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Kaijun Lin (林恺俊)");
     }
 
 }

@@ -10,4 +10,8 @@ public interface Top10RankRepository {
     List<Top10ResultDTO.Top10ItemDTO> findTop10RankForCountryAndSingleResult(Event event, String region, Gender gender);
 
     List<Top10ResultDTO.Top10ItemDTO> findTop10RankForCountryAndAverageResult(Event event, String region, Gender gender);
+
+    List<Top10ResultDTO.Top10ItemDTO> findTop10RankSingleResultForWholeWorld(Event event, Gender gender);
+
+    List<Top10ResultDTO.Top10ItemDTO> findTop10RankAverageResultForWholeWorld(Event event, Gender gender);
 }

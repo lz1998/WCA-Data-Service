@@ -1,6 +1,7 @@
 package xin.lz1998.wcads.repository.impl;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringPath;
@@ -70,6 +71,49 @@ public class Top10RankRepositoryImpl implements Top10RankRepository {
                 .and(wcaPerson.subId.ne(2))
                 // remove dirty data with rank 0
                 .and(rankTableCountryRankField.ne(0));
+        if (!ALL.equals(gender)) {
+            booleanBuilder.and(wcaPerson.gender.eq(gender.getBriefName()));
+        }
+        return booleanBuilder;
+    }
+
+    @Override
+    public List<Top10ResultDTO.Top10ItemDTO> findTop10RankSingleResultForWholeWorld(Event event, Gender gender) {
+        return queryFactory.select(
+                Projections.constructor(
+                        Top10ResultDTO.Top10ItemDTO.class,
+                        wcaPerson.name,
+                        wcaRankSingle.best))
+                .from(wcaRankSingle)
+                .innerJoin(wcaPerson)
+                .on(wcaRankSingle.personId.eq(wcaPerson.id))
+                .where(buildWhereExpression(event.getBriefName(), gender, wcaRankSingle.eventId, wcaRankSingle.worldRank))
+                .orderBy(wcaRankSingle.worldRank.asc())
+                .limit(TOP_NUMBER)
+                .fetch();
+    }
+
+    @Override
+    public List<Top10ResultDTO.Top10ItemDTO> findTop10RankAverageResultForWholeWorld(Event event, Gender gender) {
+        return queryFactory.select(
+                Projections.constructor(
+                        Top10ResultDTO.Top10ItemDTO.class,
+                        wcaPerson.name,
+                        wcaRankAverage.best))
+                .from(wcaRankAverage)
+                .innerJoin(wcaPerson)
+                .on(wcaRankAverage.personId.eq(wcaPerson.id))
+                .where(buildWhereExpression(event.getBriefName(), gender, wcaRankAverage.eventId, wcaRankAverage.worldRank))
+                .orderBy(wcaRankAverage.worldRank.asc())
+                .limit(TOP_NUMBER)
+                .fetch();
+    }
+
+    private Predicate buildWhereExpression(String event, Gender gender, StringPath eventId, NumberPath<Integer> worldRank) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(eventId.eq(event))
+                .and(wcaPerson.subId.ne(2))
+                .and(worldRank.ne(0));
         if (!ALL.equals(gender)) {
             booleanBuilder.and(wcaPerson.gender.eq(gender.getBriefName()));
         }
