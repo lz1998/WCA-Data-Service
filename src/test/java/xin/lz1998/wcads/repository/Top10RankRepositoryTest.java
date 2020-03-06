@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
+import xin.lz1998.wcads.domain.Event;
+import xin.lz1998.wcads.domain.Gender;
+import xin.lz1998.wcads.domain.ResultType;
 import xin.lz1998.wcads.entity.WcaRankSingle;
 import xin.lz1998.wcads.entity.WcaRankSingleKey;
 
@@ -16,6 +19,14 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static xin.lz1998.wcads.domain.Event.MEGAMINX;
+import static xin.lz1998.wcads.domain.Event.POCKET_CUBE;
+import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE;
+import static xin.lz1998.wcads.domain.Gender.ALL;
+import static xin.lz1998.wcads.domain.Gender.FEMALE;
+import static xin.lz1998.wcads.domain.Gender.MALE;
+import static xin.lz1998.wcads.domain.ResultType.AVERAGE;
+import static xin.lz1998.wcads.domain.ResultType.SINGLE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,10 +41,10 @@ public class Top10RankRepositoryTest {
     @Test
     public void shouldReturnTop10RubiksCubeSingleResultInChinaForMale() {
         // given
-        String event = "333";
+        Event event = RUBIKS_CUBE;
         String region = "China";
-        String type = "sin";
-        String gender = "m";
+        ResultType type = SINGLE;
+        Gender gender = MALE;
 
         // then
         List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10Rank(event, region, type, gender);
@@ -49,10 +60,10 @@ public class Top10RankRepositoryTest {
     @Test
     public void shouldReturnTop10TwoByTwoAverageResultInUSAForFemale() {
         // given
-        String event = "222";
+        Event event = POCKET_CUBE;
         String region = "USA";
-        String type = "avg";
-        String gender = "f";
+        ResultType type = AVERAGE;
+        Gender gender = FEMALE;
 
         // then
         List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10Rank(event, region, type, gender);
@@ -68,10 +79,10 @@ public class Top10RankRepositoryTest {
     @Test
     public void shouldReturnTop10MinxAverageResultInSouthKoreanForAllGender() {
         // given
-        String event = "minx";
+        Event event = MEGAMINX;
         String region = "Korea";
-        String type = "avg";
-        String gender = "all";
+        ResultType type = AVERAGE;
+        Gender gender = ALL;
 
         // then
         List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10Rank(event, region, type, gender);

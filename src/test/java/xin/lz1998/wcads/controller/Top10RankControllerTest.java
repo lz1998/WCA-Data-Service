@@ -6,9 +6,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
+import xin.lz1998.wcads.domain.Event;
+import xin.lz1998.wcads.domain.Gender;
+import xin.lz1998.wcads.domain.ResultType;
+import xin.lz1998.wcads.domain.converter.EventConverter;
+import xin.lz1998.wcads.domain.converter.GenderConverter;
+import xin.lz1998.wcads.domain.converter.ResultTypeConverter;
 import xin.lz1998.wcads.repository.Top10RankRepository;
 import xin.lz1998.wcads.service.Top10RankService;
 import xin.lz1998.wcads.service.impl.Top10RankServiceImpl;
@@ -27,10 +34,17 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
 
     private Top10RankRepository top10RankRepository = mock(Top10RankRepository.class);
 
+    private FormattingConversionService conversionService = new FormattingConversionService();
+
     @Before
     public void setUp() {
+        conversionService.addConverter(new EventConverter());
+        conversionService.addConverter(new ResultTypeConverter());
+        conversionService.addConverter(new GenderConverter());
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
-                new Top10RankController(new Top10RankServiceImpl(top10RankRepository))).build();
+                new Top10RankController(new Top10RankServiceImpl(top10RankRepository)))
+                .setConversionService(conversionService)
+                .build();
         RestAssuredMockMvc.mockMvc(mockMvc);
     }
 
@@ -55,6 +69,6 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10Rank("333", "nr", "sin", "all");
+        verify(top10RankRepository).findTop10Rank(Event.RUBIKS_CUBE, "nr", ResultType.SINGLE, Gender.ALL);
     }
 }

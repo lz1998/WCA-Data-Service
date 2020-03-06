@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
+import xin.lz1998.wcads.domain.Event;
+import xin.lz1998.wcads.domain.Gender;
+import xin.lz1998.wcads.domain.ResultType;
 import xin.lz1998.wcads.service.Top10RankService;
 
 @RestController
@@ -17,10 +20,10 @@ public class Top10RankController {
     }
 
     @GetMapping()
-    public Top10ResultDTO getTop10Rank(@RequestParam(value = "event") String event,
+    public Top10ResultDTO getTop10Rank(@RequestParam(value = "event") Event event,
                                        @RequestParam(value = "region", required = false, defaultValue = "nr") String region,
-                                       @RequestParam(value = "type", required = false, defaultValue = "sin") String type,
-                                       @RequestParam(value = "gender", required = false, defaultValue = "all") String gender) {
+                                       @RequestParam(value = "type", required = false, defaultValue = "sin") ResultType type,
+                                       @RequestParam(value = "gender", required = false, defaultValue = "all") Gender gender) {
         return top10RankService.searchTop10Rank(event, region, type, gender);
     }
 
