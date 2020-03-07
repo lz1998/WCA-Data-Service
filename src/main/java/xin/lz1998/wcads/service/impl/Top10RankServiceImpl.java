@@ -29,7 +29,7 @@ public class Top10RankServiceImpl implements Top10RankService {
     @Override
     public Top10ResultDTO searchTop10Rank(Event event, String region, ResultType type, Gender gender) {
         List<Top10ResultDTO.Top10ItemDTO> top10Rank = Lists.newArrayList();
-        if (region.equals(WORLD_RECORD.getBriefName())) {
+        if (region.equalsIgnoreCase(WORLD_RECORD.getBriefName())) {
             if (type.equals(ResultType.SINGLE)) {
                 top10Rank = top10RankRepository.findTop10RankSingleResultForWholeWorld(event, gender);
             } else if (type.equals(ResultType.AVERAGE)) {
@@ -41,7 +41,7 @@ public class Top10RankServiceImpl implements Top10RankService {
             } else if (type.equals(ResultType.AVERAGE)) {
                 top10Rank = top10RankRepository.findTop10RankAverageResultForContinent(event, Region.from(region), gender);
             }
-        } else if (region.equals(NATION_RECORD.getBriefName())) {
+        } else if (region.equalsIgnoreCase(NATION_RECORD.getBriefName())) {
             top10Rank = getTop10RankForCountry(event, CHINA, type, gender);
         } else {
             top10Rank = getTop10RankForCountry(event, region, type, gender);

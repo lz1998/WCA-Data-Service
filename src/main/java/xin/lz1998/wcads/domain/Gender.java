@@ -30,6 +30,6 @@ public enum Gender {
         if (Objects.isNull(briefName)){
             return ALL;
         }
-        return Arrays.stream(Gender.values()).filter(gender -> briefName.equals(gender.getBriefName())).findFirst().orElse(ALL);
+        return Arrays.stream(Gender.values()).filter(gender -> briefName.equalsIgnoreCase(gender.getBriefName())).findFirst().orElse(ALL);
     }
 }

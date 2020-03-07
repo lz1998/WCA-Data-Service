@@ -26,6 +26,6 @@ public enum ResultType {
         if (Objects.isNull(briefName)){
             return SINGLE;
         }
-        return Arrays.stream(ResultType.values()).filter(resultType -> briefName.equals(resultType.getBriefName())).findFirst().orElse(SINGLE);
+        return Arrays.stream(ResultType.values()).filter(resultType -> briefName.equalsIgnoreCase(resultType.getBriefName())).findFirst().orElse(SINGLE);
     }
 }

@@ -90,6 +90,6 @@ public enum Event {
         if (Objects.isNull(briefName)){
             return RUBIKS_CUBE;
         }
-        return Arrays.stream(Event.values()).filter(event -> briefName.equals(event.getBriefName())).findFirst().orElse(RUBIKS_CUBE);
+        return Arrays.stream(Event.values()).filter(event -> briefName.equalsIgnoreCase(event.getBriefName())).findFirst().orElse(RUBIKS_CUBE);
     }
 }
