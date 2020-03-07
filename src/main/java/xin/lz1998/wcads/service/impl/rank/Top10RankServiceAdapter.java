@@ -1,4 +1,4 @@
-package xin.lz1998.wcads.service.impl;
+package xin.lz1998.wcads.service.impl.rank;
 
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;

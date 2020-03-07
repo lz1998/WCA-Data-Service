@@ -1,4 +1,4 @@
-package xin.lz1998.wcads.repository;
+package xin.lz1998.wcads.repository.impl.rank;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
@@ -12,6 +12,7 @@ import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
 import xin.lz1998.wcads.domain.ResultType;
+import xin.lz1998.wcads.repository.Top10RankRepository;
 
 import java.util.List;
 
@@ -122,7 +123,7 @@ public abstract class BaseTop10RankRepository implements Top10RankRepository {
 
     protected abstract NumberPath<Integer> getBestResultColumnPath();
 
-    protected abstract  NumberPath<Integer> getWorldRankColumnPath();
+    protected abstract NumberPath<Integer> getWorldRankColumnPath();
 
     protected abstract NumberPath<Integer> getContinentRankColumnPath();
 

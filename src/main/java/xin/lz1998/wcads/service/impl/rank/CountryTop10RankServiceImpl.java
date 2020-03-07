@@ -1,4 +1,4 @@
-package xin.lz1998.wcads.service;
+package xin.lz1998.wcads.service.impl.rank;
 
 import org.springframework.stereotype.Service;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
@@ -7,6 +7,7 @@ import xin.lz1998.wcads.domain.Gender;
 import xin.lz1998.wcads.domain.Region;
 import xin.lz1998.wcads.domain.ResultType;
 import xin.lz1998.wcads.repository.Top10RankRepository;
+import xin.lz1998.wcads.service.Top10RankService;
 
 import java.util.List;
 

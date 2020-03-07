@@ -17,10 +17,10 @@ import xin.lz1998.wcads.domain.converter.EventConverter;
 import xin.lz1998.wcads.domain.converter.GenderConverter;
 import xin.lz1998.wcads.domain.converter.ResultTypeConverter;
 import xin.lz1998.wcads.repository.Top10RankRepository;
-import xin.lz1998.wcads.service.ContinentTop10RankServiceImpl;
-import xin.lz1998.wcads.service.CountryTop10RankServiceImpl;
-import xin.lz1998.wcads.service.WorldTop10RankServiceImpl;
-import xin.lz1998.wcads.service.impl.Top10RankServiceAdapter;
+import xin.lz1998.wcads.service.impl.rank.ContinentTop10RankServiceImpl;
+import xin.lz1998.wcads.service.impl.rank.CountryTop10RankServiceImpl;
+import xin.lz1998.wcads.service.impl.rank.WorldTop10RankServiceImpl;
+import xin.lz1998.wcads.service.impl.rank.Top10RankServiceAdapter;
 
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;

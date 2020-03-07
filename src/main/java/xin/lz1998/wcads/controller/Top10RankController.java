@@ -8,7 +8,7 @@ import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
 import xin.lz1998.wcads.domain.ResultType;
-import xin.lz1998.wcads.service.impl.Top10RankServiceAdapter;
+import xin.lz1998.wcads.service.impl.rank.Top10RankServiceAdapter;
 
 @RestController
 @RequestMapping("/top10rank")

@@ -1,4 +1,4 @@
-package xin.lz1998.wcads.repository.impl;
+package xin.lz1998.wcads.repository.impl.rank;
 
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
@@ -7,55 +7,55 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 import xin.lz1998.wcads.domain.ResultType;
-import xin.lz1998.wcads.repository.BaseTop10RankRepository;
 
-import static xin.lz1998.wcads.entity.QWcaRankSingle.wcaRankSingle;
+import static xin.lz1998.wcads.entity.QWcaRankAverage.wcaRankAverage;
 
 @Repository
-public class Top10RankSingleResultRepositoryImpl extends BaseTop10RankRepository {
+public class Top10RankAverageResultRepositoryImpl extends BaseTop10RankRepository {
 
-    public Top10RankSingleResultRepositoryImpl(JPAQueryFactory queryFactory) {
+    public Top10RankAverageResultRepositoryImpl(JPAQueryFactory queryFactory) {
         super(queryFactory);
     }
 
     @NotNull
     @Override
     protected EntityPathBase getRankTableName() {
-        return wcaRankSingle;
+        return wcaRankAverage;
     }
 
     @Override
     protected StringPath getEventIdColumnPath() {
-        return wcaRankSingle.eventId;
+        return wcaRankAverage.eventId;
     }
 
     @Override
     protected StringPath getPersonIdColumnPath() {
-        return wcaRankSingle.personId;
+        return wcaRankAverage.personId;
     }
 
     @Override
     protected NumberPath<Integer> getBestResultColumnPath() {
-        return wcaRankSingle.best;
+        return wcaRankAverage.best;
     }
 
     @Override
     protected NumberPath<Integer> getWorldRankColumnPath() {
-        return wcaRankSingle.worldRank;
+        return wcaRankAverage.worldRank;
     }
 
     @Override
     protected NumberPath<Integer> getContinentRankColumnPath() {
-        return wcaRankSingle.continentRank;
+        return wcaRankAverage.continentRank;
     }
 
     @Override
     protected NumberPath<Integer> getCountryRankColumnPath() {
-        return wcaRankSingle.countryRank;
+        return wcaRankAverage.countryRank;
     }
 
     @Override
     public boolean matchResultType(ResultType type) {
-        return type.equals(ResultType.SINGLE);
+        return type.equals(ResultType.AVERAGE);
     }
+
 }

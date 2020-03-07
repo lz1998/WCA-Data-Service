@@ -1,4 +1,4 @@
-package xin.lz1998.wcads.repository;
+package xin.lz1998.wcads.repository.impl.rank;
 
 import com.querydsl.core.types.dsl.EntityPathBase;
 import com.querydsl.core.types.dsl.NumberPath;
@@ -8,54 +8,53 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 import xin.lz1998.wcads.domain.ResultType;
 
-import static xin.lz1998.wcads.entity.QWcaRankAverage.wcaRankAverage;
+import static xin.lz1998.wcads.entity.QWcaRankSingle.wcaRankSingle;
 
 @Repository
-public class Top10RankAverageResultRepositoryImpl extends BaseTop10RankRepository {
+public class Top10RankSingleResultRepositoryImpl extends BaseTop10RankRepository {
 
-    public Top10RankAverageResultRepositoryImpl(JPAQueryFactory queryFactory) {
+    public Top10RankSingleResultRepositoryImpl(JPAQueryFactory queryFactory) {
         super(queryFactory);
     }
 
     @NotNull
     @Override
     protected EntityPathBase getRankTableName() {
-        return wcaRankAverage;
+        return wcaRankSingle;
     }
 
     @Override
     protected StringPath getEventIdColumnPath() {
-        return wcaRankAverage.eventId;
+        return wcaRankSingle.eventId;
     }
 
     @Override
     protected StringPath getPersonIdColumnPath() {
-        return wcaRankAverage.personId;
+        return wcaRankSingle.personId;
     }
 
     @Override
     protected NumberPath<Integer> getBestResultColumnPath() {
-        return wcaRankAverage.best;
+        return wcaRankSingle.best;
     }
 
     @Override
     protected NumberPath<Integer> getWorldRankColumnPath() {
-        return wcaRankAverage.worldRank;
+        return wcaRankSingle.worldRank;
     }
 
     @Override
     protected NumberPath<Integer> getContinentRankColumnPath() {
-        return wcaRankAverage.continentRank;
+        return wcaRankSingle.continentRank;
     }
 
     @Override
     protected NumberPath<Integer> getCountryRankColumnPath() {
-        return wcaRankAverage.countryRank;
+        return wcaRankSingle.countryRank;
     }
 
     @Override
     public boolean matchResultType(ResultType type) {
-        return type.equals(ResultType.AVERAGE);
+        return type.equals(ResultType.SINGLE);
     }
-
 }
