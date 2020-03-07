@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
+import xin.lz1998.wcads.domain.Region;
 import xin.lz1998.wcads.domain.converter.EventConverter;
 import xin.lz1998.wcads.domain.converter.GenderConverter;
 import xin.lz1998.wcads.domain.converter.ResultTypeConverter;
@@ -67,7 +68,7 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10RankForCountryAndSingleResult(Event.RUBIKS_CUBE, "nr", Gender.ALL);
+        verify(top10RankRepository).findTop10RankForCountryAndSingleResult(Event.RUBIKS_CUBE, "China", Gender.ALL);
     }
 
     @Test
@@ -83,5 +84,20 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .contentType(JSON);
 
         verify(top10RankRepository).findTop10RankAverageResultForWholeWorld(Event.RUBIKS_CUBE, Gender.ALL);
+    }
+
+    @Test
+    public void shouldReturnTop10RankForAsiaForAllGender() {
+        doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
+                .when(top10RankRepository).findTop10RankSingleResultForContinent(any(), any(), any());
+
+        given()
+                .when()
+                .get("/top10rank?event=333oh&region=asr")
+                .then()
+                .statusCode(OK.value())
+                .contentType(JSON);
+
+        verify(top10RankRepository).findTop10RankSingleResultForContinent(Event.RUBIKS_CUBE_ONE_HANDED, Region.ASIA_RECORD, Gender.ALL);
     }
 }
