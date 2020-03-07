@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
-import xin.lz1998.wcads.domain.Region;
+import xin.lz1998.wcads.domain.ResultType;
 import xin.lz1998.wcads.domain.converter.EventConverter;
 import xin.lz1998.wcads.domain.converter.GenderConverter;
 import xin.lz1998.wcads.domain.converter.ResultTypeConverter;
@@ -68,7 +68,7 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
     @Test
     public void shouldReturnTop10RankInChinaForAllGenderWhenJustPassEventId() {
         doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
-                .when(top10RankRepository).findTop10RankForCountryAndSingleResult(any(), any(), any());
+                .when(top10RankRepository).findTop10RankForCountry(any(), any(), any(), any());
 
         given()
                 .when()
@@ -77,13 +77,13 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10RankForCountryAndSingleResult(Event.RUBIKS_CUBE, "China", Gender.ALL);
+        verify(top10RankRepository).findTop10RankForCountry(Event.RUBIKS_CUBE, "China", ResultType.SINGLE, Gender.ALL);
     }
 
     @Test
     public void shouldReturnTop10RankForWholeWorldForAllGender() {
         doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
-                .when(top10RankRepository).findTop10RankAverageResultForWholeWorld(any(), any());
+                .when(top10RankRepository).findTop10RankForWholeWorld(any(), any(), any());
 
         given()
                 .when()
@@ -92,13 +92,13 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10RankAverageResultForWholeWorld(Event.RUBIKS_CUBE, Gender.ALL);
+        verify(top10RankRepository).findTop10RankForWholeWorld(Event.RUBIKS_CUBE, ResultType.AVERAGE, Gender.ALL);
     }
 
     @Test
     public void shouldReturnTop10RankForAsiaForAllGender() {
         doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
-                .when(top10RankRepository).findTop10RankSingleResultForContinent(any(), any(), any());
+                .when(top10RankRepository).findTop10RankForContinent(any(), any(), any(), any());
 
         given()
                 .when()
@@ -107,13 +107,13 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10RankSingleResultForContinent(Event.RUBIKS_CUBE_ONE_HANDED, ASIA_RECORD.getBriefName(), Gender.ALL);
+        verify(top10RankRepository).findTop10RankForContinent(Event.RUBIKS_CUBE_ONE_HANDED, ASIA_RECORD.getBriefName(), ResultType.SINGLE, Gender.ALL);
     }
 
     @Test
     public void shouldReturnTop10RankForIndiaForAllGender() {
         doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
-                .when(top10RankRepository).findTop10RankForCountryAndSingleResult(any(), any(), any());
+                .when(top10RankRepository).findTop10RankForCountry(any(), any(), any(), any());
 
         given()
                 .when()
@@ -122,13 +122,13 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10RankForCountryAndSingleResult(Event.PROFESSORS_CUBE, "india", Gender.ALL);
+        verify(top10RankRepository).findTop10RankForCountry(Event.PROFESSORS_CUBE, "india", ResultType.SINGLE, Gender.ALL);
     }
 
     @Test
     public void shouldReturnTop10RankIgnoreCase() {
         doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
-                .when(top10RankRepository).findTop10RankForCountryAndAverageResult(any(), any(), any());
+                .when(top10RankRepository).findTop10RankForCountry(any(), any(), any(), any());
 
         given()
                 .when()
@@ -137,6 +137,6 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10RankForCountryAndAverageResult(Event.PYRAMINX, "China", Gender.FEMALE);
+        verify(top10RankRepository).findTop10RankForCountry(Event.PYRAMINX, "China", ResultType.AVERAGE, Gender.FEMALE);
     }
 }

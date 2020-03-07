@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
-import xin.lz1998.wcads.domain.Region;
+import xin.lz1998.wcads.domain.ResultType;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,6 +27,8 @@ import static xin.lz1998.wcads.domain.Gender.FEMALE;
 import static xin.lz1998.wcads.domain.Gender.MALE;
 import static xin.lz1998.wcads.domain.Region.ASIA_RECORD;
 import static xin.lz1998.wcads.domain.Region.NORTH_AMERICA_RECORD;
+import static xin.lz1998.wcads.domain.ResultType.AVERAGE;
+import static xin.lz1998.wcads.domain.ResultType.SINGLE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -42,11 +44,12 @@ public class Top10RankRepositoryTest {
     public void shouldReturnTop10RubiksCubeSingleResultInChinaForMale() {
         // given
         Event event = RUBIKS_CUBE;
+        ResultType type = SINGLE;
         String region = "China";
         Gender gender = MALE;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountryAndSingleResult(event, region, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountry(event, region, type, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);
@@ -60,11 +63,12 @@ public class Top10RankRepositoryTest {
     public void shouldReturnTop10TwoByTwoAverageResultInUSAForFemale() {
         // given
         Event event = POCKET_CUBE;
+        ResultType type = AVERAGE;
         String region = "USA";
         Gender gender = FEMALE;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountryAndAverageResult(event, region, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountry(event, region, type, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);
@@ -78,11 +82,12 @@ public class Top10RankRepositoryTest {
     public void shouldReturnTop10MinxAverageResultInSouthKoreanForAllGender() {
         // given
         Event event = MEGAMINX;
+        ResultType type = AVERAGE;
         String region = "Korea";
         Gender gender = ALL;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountryAndAverageResult(event, region, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForCountry(event, region, type, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);
@@ -96,11 +101,12 @@ public class Top10RankRepositoryTest {
     public void shouldReturnTop10RubiksCubeBlindfoldedSingleResultForWholeWorldForAllGender() {
         // given
         Event event = RUBIKS_CUBE_BLINDFOLDED;
+        ResultType type = SINGLE;
         String region = "wr";
         Gender gender = ALL;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankSingleResultForWholeWorld(event, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForWholeWorld(event, type, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);
@@ -114,11 +120,12 @@ public class Top10RankRepositoryTest {
     public void shouldReturnTop10RubiksCubeOneHandAverageResultForAsiaForMale() {
         // given
         Event event = RUBIKS_CUBE_ONE_HANDED;
+        ResultType type = AVERAGE;
         String region = ASIA_RECORD.getBriefName();
         Gender gender = MALE;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankAverageResultForContinent(event, region, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForContinent(event, region, type, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);
@@ -132,11 +139,12 @@ public class Top10RankRepositoryTest {
     public void shouldReturnTop10SixBySixSingleResultForNorthAmericaForAllGender() {
         // given
         Event event = SIX_BY_SIX_CUBE;
+        ResultType type = SINGLE;
         String region = NORTH_AMERICA_RECORD.getBriefName();
         Gender gender = ALL;
 
         // then
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankSingleResultForContinent(event, region, gender);
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForContinent(event, region, type, gender);
 
         // then
         assertThat(top10Rank).hasSize(10);

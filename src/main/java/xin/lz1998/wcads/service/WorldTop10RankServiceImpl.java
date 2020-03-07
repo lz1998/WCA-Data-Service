@@ -21,13 +21,7 @@ public class WorldTop10RankServiceImpl implements Top10RankService {
 
     @Override
     public List<Top10ResultDTO.Top10ItemDTO> searchTop10Rank(Event event, String region, ResultType type, Gender gender) {
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = Lists.newArrayList();
-        if (type.equals(ResultType.SINGLE)) {
-            top10Rank = top10RankRepository.findTop10RankSingleResultForWholeWorld(event, gender);
-        } else if (type.equals(ResultType.AVERAGE)) {
-            top10Rank = top10RankRepository.findTop10RankAverageResultForWholeWorld(event, gender);
-        }
-        return top10Rank;
+        return top10RankRepository.findTop10RankForWholeWorld(event, type, gender);
     }
 
     @Override

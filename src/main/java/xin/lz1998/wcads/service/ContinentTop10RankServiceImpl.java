@@ -1,6 +1,5 @@
 package xin.lz1998.wcads.service;
 
-import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
@@ -21,13 +20,7 @@ public class ContinentTop10RankServiceImpl implements Top10RankService {
 
     @Override
     public List<Top10ResultDTO.Top10ItemDTO> searchTop10Rank(Event event, String region, ResultType type, Gender gender) {
-        List<Top10ResultDTO.Top10ItemDTO> top10Rank = Lists.newArrayList();
-        if (type.equals(ResultType.SINGLE)) {
-            top10Rank = top10RankRepository.findTop10RankSingleResultForContinent(event, region, gender);
-        } else if (type.equals(ResultType.AVERAGE)) {
-            top10Rank = top10RankRepository.findTop10RankAverageResultForContinent(event, region, gender);
-        }
-        return top10Rank;
+        return top10RankRepository.findTop10RankForContinent(event, region, type, gender);
     }
 
     @Override
