@@ -23,9 +23,9 @@ public class ContinentTop10RankServiceImpl implements Top10RankService {
     public List<Top10ResultDTO.Top10ItemDTO> searchTop10Rank(Event event, String region, ResultType type, Gender gender) {
         List<Top10ResultDTO.Top10ItemDTO> top10Rank = Lists.newArrayList();
         if (type.equals(ResultType.SINGLE)) {
-            top10Rank = top10RankRepository.findTop10RankSingleResultForContinent(event, Region.from(region), gender);
+            top10Rank = top10RankRepository.findTop10RankSingleResultForContinent(event, region, gender);
         } else if (type.equals(ResultType.AVERAGE)) {
-            top10Rank = top10RankRepository.findTop10RankAverageResultForContinent(event, Region.from(region), gender);
+            top10Rank = top10RankRepository.findTop10RankAverageResultForContinent(event, region, gender);
         }
         return top10Rank;
     }

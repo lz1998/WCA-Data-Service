@@ -30,6 +30,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
+import static xin.lz1998.wcads.domain.Region.ASIA_RECORD;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Top10RankControllerTest extends MockMvcBaseTest {
@@ -106,7 +107,7 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
                 .statusCode(OK.value())
                 .contentType(JSON);
 
-        verify(top10RankRepository).findTop10RankSingleResultForContinent(Event.RUBIKS_CUBE_ONE_HANDED, Region.ASIA_RECORD, Gender.ALL);
+        verify(top10RankRepository).findTop10RankSingleResultForContinent(Event.RUBIKS_CUBE_ONE_HANDED, ASIA_RECORD.getBriefName(), Gender.ALL);
     }
 
     @Test

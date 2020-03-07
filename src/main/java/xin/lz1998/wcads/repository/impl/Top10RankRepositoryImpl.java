@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
-import xin.lz1998.wcads.domain.Region;
 import xin.lz1998.wcads.repository.Top10RankRepository;
 
 import java.util.List;
@@ -124,7 +123,7 @@ public class Top10RankRepositoryImpl implements Top10RankRepository {
     }
 
     @Override
-    public List<Top10ResultDTO.Top10ItemDTO> findTop10RankSingleResultForContinent(Event event, Region continentName, Gender gender) {
+    public List<Top10ResultDTO.Top10ItemDTO> findTop10RankSingleResultForContinent(Event event, String continentName, Gender gender) {
         return queryFactory.select(
                 Projections.constructor(
                         Top10ResultDTO.Top10ItemDTO.class,
@@ -137,14 +136,14 @@ public class Top10RankRepositoryImpl implements Top10RankRepository {
                 .on(wcaPerson.countryId.eq(country.id))
                 .innerJoin(continent)
                 .on(country.continentId.eq(continent.id))
-                .where(buildWhereExpression(event.getBriefName(), continentName, gender, wcaRankSingle.eventId, wcaRankSingle.continentRank))
+                .where(buildContinentWhereExpression(event.getBriefName(), continentName, gender, wcaRankSingle.eventId, wcaRankSingle.continentRank))
                 .orderBy(wcaRankSingle.continentRank.asc())
                 .limit(TOP_NUMBER)
                 .fetch();
     }
 
     @Override
-    public List<Top10ResultDTO.Top10ItemDTO> findTop10RankAverageResultForContinent(Event event, Region continentName, Gender gender) {
+    public List<Top10ResultDTO.Top10ItemDTO> findTop10RankAverageResultForContinent(Event event, String continentName, Gender gender) {
         return queryFactory.select(
                 Projections.constructor(
                         Top10ResultDTO.Top10ItemDTO.class,
@@ -157,17 +156,17 @@ public class Top10RankRepositoryImpl implements Top10RankRepository {
                 .on(wcaPerson.countryId.eq(country.id))
                 .innerJoin(continent)
                 .on(country.continentId.eq(continent.id))
-                .where(buildWhereExpression(event.getBriefName(), continentName, gender, wcaRankAverage.eventId, wcaRankAverage.continentRank))
+                .where(buildContinentWhereExpression(event.getBriefName(), continentName, gender, wcaRankAverage.eventId, wcaRankAverage.continentRank))
                 .orderBy(wcaRankAverage.continentRank.asc())
                 .limit(TOP_NUMBER)
                 .fetch();
     }
 
-    private BooleanBuilder buildWhereExpression(String event, Region continentName, Gender gender, StringPath eventId,
+    private BooleanBuilder buildContinentWhereExpression(String event, String continentName, Gender gender, StringPath eventId,
                                                 NumberPath<Integer> continentRank) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(eventId.eq(event))
-                .and(continent.recordName.equalsIgnoreCase(continentName.getBriefName()))
+                .and(continent.recordName.equalsIgnoreCase(continentName))
                 .and(wcaPerson.subId.ne(2))
                 .and(continentRank.ne(0));
         if (!ALL.equals(gender)) {

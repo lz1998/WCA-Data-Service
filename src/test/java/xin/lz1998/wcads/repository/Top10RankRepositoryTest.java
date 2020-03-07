@@ -114,7 +114,7 @@ public class Top10RankRepositoryTest {
     public void shouldReturnTop10RubiksCubeOneHandAverageResultForAsiaForMale() {
         // given
         Event event = RUBIKS_CUBE_ONE_HANDED;
-        Region region = ASIA_RECORD;
+        String region = ASIA_RECORD.getBriefName();
         Gender gender = MALE;
 
         // then
@@ -132,7 +132,7 @@ public class Top10RankRepositoryTest {
     public void shouldReturnTop10SixBySixSingleResultForNorthAmericaForAllGender() {
         // given
         Event event = SIX_BY_SIX_CUBE;
-        Region region = NORTH_AMERICA_RECORD;
+        String region = NORTH_AMERICA_RECORD.getBriefName();
         Gender gender = ALL;
 
         // then

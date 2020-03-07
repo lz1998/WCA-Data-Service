@@ -48,8 +48,16 @@ public enum Region {
 
     private String briefName;
 
+    public static boolean isWorldRecord(String region) {
+        return region.equalsIgnoreCase(WORLD_RECORD.getBriefName());
+    }
+
     public static boolean isContinentRecord(String region) {
         return CONTINENT_RECORD.stream().anyMatch(record -> record.getBriefName().equalsIgnoreCase(region));
+    }
+
+    public static boolean isCountryRecord(String region) {
+        return !Region.isContinentRecord(region) && !Region.isWorldRecord(region);
     }
 
     public static Region from(String briefName) {

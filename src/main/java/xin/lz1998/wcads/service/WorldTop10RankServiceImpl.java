@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
+import xin.lz1998.wcads.domain.Region;
 import xin.lz1998.wcads.domain.ResultType;
 import xin.lz1998.wcads.repository.Top10RankRepository;
 
 import java.util.List;
-
-import static xin.lz1998.wcads.domain.Region.WORLD_RECORD;
 
 @Service
 public class WorldTop10RankServiceImpl implements Top10RankService {
@@ -33,7 +32,7 @@ public class WorldTop10RankServiceImpl implements Top10RankService {
 
     @Override
     public boolean matchRegionType(String region) {
-        return region.equalsIgnoreCase(WORLD_RECORD.getBriefName());
+        return Region.isWorldRecord(region);
     }
 
     @Override

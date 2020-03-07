@@ -37,7 +37,7 @@ public class CountryTop10RankServiceImpl implements Top10RankService {
 
     @Override
     public boolean matchRegionType(String region) {
-        return !Region.isContinentRecord(region) && !region.equalsIgnoreCase(WORLD_RECORD.getBriefName());
+        return Region.isCountryRecord(region);
     }
 
     @Override
