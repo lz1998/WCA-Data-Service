@@ -17,7 +17,10 @@ import xin.lz1998.wcads.domain.converter.EventConverter;
 import xin.lz1998.wcads.domain.converter.GenderConverter;
 import xin.lz1998.wcads.domain.converter.ResultTypeConverter;
 import xin.lz1998.wcads.repository.Top10RankRepository;
-import xin.lz1998.wcads.service.impl.Top10RankServiceImpl;
+import xin.lz1998.wcads.service.ContinentTop10RankServiceImpl;
+import xin.lz1998.wcads.service.CountryTop10RankServiceImpl;
+import xin.lz1998.wcads.service.WorldTop10RankServiceImpl;
+import xin.lz1998.wcads.service.impl.Top10RankServiceAdapter;
 
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
@@ -41,7 +44,12 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
         conversionService.addConverter(new ResultTypeConverter());
         conversionService.addConverter(new GenderConverter());
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(
-                new Top10RankController(new Top10RankServiceImpl(top10RankRepository)))
+                new Top10RankController(new Top10RankServiceAdapter(Lists.newArrayList(
+                        new WorldTop10RankServiceImpl(top10RankRepository),
+                        new ContinentTop10RankServiceImpl(top10RankRepository),
+                        new CountryTop10RankServiceImpl(top10RankRepository))
+                ))
+        )
                 .setConversionService(conversionService)
                 .build();
         RestAssuredMockMvc.mockMvc(mockMvc);
@@ -119,7 +127,7 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
     @Test
     public void shouldReturnTop10RankIgnoreCase() {
         doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
-                .when(top10RankRepository).findTop10RankAverageResultForContinent(any(), any(), any());
+                .when(top10RankRepository).findTop10RankForCountryAndAverageResult(any(), any(), any());
 
         given()
                 .when()
