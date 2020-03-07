@@ -100,4 +100,19 @@ public class Top10RankControllerTest extends MockMvcBaseTest {
 
         verify(top10RankRepository).findTop10RankSingleResultForContinent(Event.RUBIKS_CUBE_ONE_HANDED, Region.ASIA_RECORD, Gender.ALL);
     }
+
+    @Test
+    public void shouldReturnTop10RankForIndiaForAllGender() {
+        doReturn(Lists.newArrayList(new Top10ResultDTO.Top10ItemDTO()))
+                .when(top10RankRepository).findTop10RankForCountryAndSingleResult(any(), any(), any());
+
+        given()
+                .when()
+                .get("/top10rank?event=555&region=india")
+                .then()
+                .statusCode(OK.value())
+                .contentType(JSON);
+
+        verify(top10RankRepository).findTop10RankForCountryAndSingleResult(Event.PROFESSORS_CUBE, "india", Gender.ALL);
+    }
 }
