@@ -19,8 +19,8 @@ import xin.lz1998.wcads.domain.converter.ResultTypeConverter;
 import xin.lz1998.wcads.repository.Top10RankRepository;
 import xin.lz1998.wcads.service.impl.rank.ContinentTop10RankServiceImpl;
 import xin.lz1998.wcads.service.impl.rank.CountryTop10RankServiceImpl;
-import xin.lz1998.wcads.service.impl.rank.WorldTop10RankServiceImpl;
 import xin.lz1998.wcads.service.impl.rank.Top10RankServiceAdapter;
+import xin.lz1998.wcads.service.impl.rank.WorldTop10RankServiceImpl;
 
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;

@@ -6,6 +6,7 @@ import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
 import xin.lz1998.wcads.domain.ResultType;
+import xin.lz1998.wcads.exception.UnknownResultTypeException;
 import xin.lz1998.wcads.repository.Top10RankRepository;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class Top10RankRepositoryWrapperImpl implements Top10RankRepository {
     }
 
     private Top10RankRepository getRepository(ResultType type) {
-        return top10RankRepositories.stream().filter(repository -> repository.matchResultType(type)).findFirst().orElseThrow(RuntimeException::new);
+        return top10RankRepositories.stream().filter(repository -> repository.matchResultType(type))
+                .findFirst().orElseThrow(() -> new UnknownResultTypeException(type.getBriefName()));
     }
 }

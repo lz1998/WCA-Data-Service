@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -57,10 +56,7 @@ public enum Region {
     }
 
     public static boolean isCountryRecord(String region) {
+        // region that is not wr or continent record will be considered as nr or nation name
         return !Region.isContinentRecord(region) && !Region.isWorldRecord(region);
-    }
-
-    public static Region from(String briefName) {
-        return Arrays.stream(Region.values()).filter(region -> briefName.equalsIgnoreCase(region.getBriefName())).findFirst().orElse(ASIA_RECORD);
     }
 }

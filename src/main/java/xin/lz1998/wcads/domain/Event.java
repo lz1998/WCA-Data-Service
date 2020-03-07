@@ -3,6 +3,7 @@ package xin.lz1998.wcads.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import xin.lz1998.wcads.exception.UnknownEventException;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -87,9 +88,10 @@ public enum Event {
 
     @JsonCreator
     public static Event from(String briefName) {
-        if (Objects.isNull(briefName)){
-            return RUBIKS_CUBE;
+        if (Objects.isNull(briefName)) {
+            throw new UnknownEventException();
         }
-        return Arrays.stream(Event.values()).filter(event -> briefName.equalsIgnoreCase(event.getBriefName())).findFirst().orElse(RUBIKS_CUBE);
+        return Arrays.stream(Event.values()).filter(event -> briefName.equalsIgnoreCase(event.getBriefName()))
+                .findFirst().orElseThrow(() -> new UnknownEventException(briefName));
     }
 }

@@ -1,11 +1,11 @@
 package xin.lz1998.wcads.service.impl.rank;
 
-import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 import xin.lz1998.wcads.controller.dto.Top10ResultDTO;
 import xin.lz1998.wcads.domain.Event;
 import xin.lz1998.wcads.domain.Gender;
 import xin.lz1998.wcads.domain.ResultType;
+import xin.lz1998.wcads.exception.UnknownRegionException;
 import xin.lz1998.wcads.service.Top10RankService;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class Top10RankServiceAdapter {
                 .filter(service -> service.matchRegionType(region))
                 .findFirst()
                 .map(service -> service.searchTop10Rank(event, service.getRealRegionName(region), type, gender))
-                .orElse(Lists.newArrayList());
+                .orElseThrow(() -> new UnknownRegionException(region));
         return Top10ResultDTO.builder().top10ItemDTOList(top10Rank).build();
     }
 

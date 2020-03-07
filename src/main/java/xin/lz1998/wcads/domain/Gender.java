@@ -3,6 +3,7 @@ package xin.lz1998.wcads.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import xin.lz1998.wcads.exception.UnknownGenderException;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -27,9 +28,10 @@ public enum Gender {
 
     @JsonCreator
     public static Gender from(String briefName) {
-        if (Objects.isNull(briefName)){
-            return ALL;
+        if (Objects.isNull(briefName)) {
+            throw new UnknownGenderException();
         }
-        return Arrays.stream(Gender.values()).filter(gender -> briefName.equalsIgnoreCase(gender.getBriefName())).findFirst().orElse(ALL);
+        return Arrays.stream(Gender.values()).filter(gender -> briefName.equalsIgnoreCase(gender.getBriefName()))
+                .findFirst().orElseThrow(() -> new UnknownGenderException(briefName));
     }
 }

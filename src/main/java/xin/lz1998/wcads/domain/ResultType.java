@@ -3,6 +3,7 @@ package xin.lz1998.wcads.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import xin.lz1998.wcads.exception.UnknownResultTypeException;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -23,9 +24,10 @@ public enum ResultType {
 
     @JsonCreator
     public static ResultType from(String briefName) {
-        if (Objects.isNull(briefName)){
-            return SINGLE;
+        if (Objects.isNull(briefName)) {
+            throw new UnknownResultTypeException();
         }
-        return Arrays.stream(ResultType.values()).filter(resultType -> briefName.equalsIgnoreCase(resultType.getBriefName())).findFirst().orElse(SINGLE);
+        return Arrays.stream(ResultType.values()).filter(resultType -> briefName.equalsIgnoreCase(resultType.getBriefName()))
+                .findFirst().orElseThrow(() -> new UnknownResultTypeException(briefName));
     }
 }
