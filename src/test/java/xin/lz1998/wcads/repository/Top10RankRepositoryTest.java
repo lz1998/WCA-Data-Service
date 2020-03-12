@@ -20,6 +20,7 @@ import static xin.lz1998.wcads.domain.Event.MEGAMINX;
 import static xin.lz1998.wcads.domain.Event.POCKET_CUBE;
 import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE;
 import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE_BLINDFOLDED;
+import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE_MULTI_BLIND;
 import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE_ONE_HANDED;
 import static xin.lz1998.wcads.domain.Event.SIX_BY_SIX_CUBE;
 import static xin.lz1998.wcads.domain.Gender.ALL;
@@ -27,6 +28,8 @@ import static xin.lz1998.wcads.domain.Gender.FEMALE;
 import static xin.lz1998.wcads.domain.Gender.MALE;
 import static xin.lz1998.wcads.domain.Region.ASIA_RECORD;
 import static xin.lz1998.wcads.domain.Region.NORTH_AMERICA_RECORD;
+import static xin.lz1998.wcads.domain.Region.OCEANIA_RECORD;
+import static xin.lz1998.wcads.domain.Region.WORLD_RECORD;
 import static xin.lz1998.wcads.domain.ResultType.AVERAGE;
 import static xin.lz1998.wcads.domain.ResultType.SINGLE;
 
@@ -53,9 +56,9 @@ public class Top10RankRepositoryTest {
 
         // then
         assertThat(top10Rank).hasSize(10);
-        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("3.47"));
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(347);
         assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Yusheng Du (杜宇生)");
-        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("5.77"));
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(577);
         assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Dawei Xu (徐大卫)");
     }
 
@@ -72,9 +75,9 @@ public class Top10RankRepositoryTest {
 
         // then
         assertThat(top10Rank).hasSize(10);
-        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("1.76"));
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(176);
         assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Kymberlyn Calderon");
-        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("3.09"));
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(309);
         assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Isabella Corona");
     }
 
@@ -91,9 +94,9 @@ public class Top10RankRepositoryTest {
 
         // then
         assertThat(top10Rank).hasSize(10);
-        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("32.03"));
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(3203);
         assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Yu Da-Hyun (유다현)");
-        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("52.43"));
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(5243);
         assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Kim Min (김민)");
     }
 
@@ -110,9 +113,9 @@ public class Top10RankRepositoryTest {
 
         // then
         assertThat(top10Rank).hasSize(10);
-        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("15.50"));
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(1550);
         assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Max Hilliard");
-        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("17.52"));
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(1752);
         assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Kaijun Lin (林恺俊)");
     }
 
@@ -129,10 +132,10 @@ public class Top10RankRepositoryTest {
 
         // then
         assertThat(top10Rank).hasSize(10);
-        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("10.20"));
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(1020);
         assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Bhargav Narasimhan");
-        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("11.51"));
-        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Zaiyang Zhang (张在旸)");
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(1151);
+        assertThat(top10Rank.get(9).getPlayerName()).isIn("Zaiyang Zhang (张在旸)", "Lin Chen (陈霖)");
     }
 
     @Test
@@ -148,10 +151,44 @@ public class Top10RankRepositoryTest {
 
         // then
         assertThat(top10Rank).hasSize(10);
-        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(new BigDecimal("69.51"));
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(6951);
         assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Max Park");
-        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(new BigDecimal("92.33"));
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(9233);
         assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Pahul Singh");
+    }
+
+    @Test
+    public void shouldReturnTop10RubiksCubeMultiBlindfoldSingleResultForOceaniaForAllGender() {
+        // given
+        Event event = RUBIKS_CUBE_MULTI_BLIND;
+        ResultType type = SINGLE;
+        String region = OCEANIA_RECORD.getBriefName();
+        Gender gender = ALL;
+
+        // then
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForContinent(event, region, type, gender);
+
+        // then
+        assertThat(top10Rank).hasSize(10);
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(710358001);
+        assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Jack Cai");
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(860301201);
+        assertThat(top10Rank.get(9).getPlayerName()).isEqualTo("Liam Sweet");
+    }
+
+    @Test
+    public void shouldReturnEmptyTop10RubiksCubeMultiBlindfoldAverageResultForWholeWorldForAllGender() {
+        // given
+        Event event = RUBIKS_CUBE_MULTI_BLIND;
+        ResultType type = AVERAGE;
+        String region = WORLD_RECORD.getBriefName();
+        Gender gender = ALL;
+
+        // then
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForWholeWorld(event, type, gender);
+
+        // then
+        assertThat(top10Rank).isEmpty();
     }
 
 }

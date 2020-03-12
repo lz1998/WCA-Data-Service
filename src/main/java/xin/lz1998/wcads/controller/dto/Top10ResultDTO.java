@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +20,14 @@ public class Top10ResultDTO {
     @Data
     @Builder
     @NoArgsConstructor
-    @AllArgsConstructor
     public static class Top10ItemDTO {
         private String playerName;
-        private BigDecimal bestResult;
+        private Integer bestResult;
 
         @QueryProjection
         public Top10ItemDTO(String playerName, Integer bestResult) {
             this.playerName = playerName;
-            this.bestResult = BigDecimal.valueOf(bestResult).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
+            this.bestResult = bestResult;
         }
     }
 
