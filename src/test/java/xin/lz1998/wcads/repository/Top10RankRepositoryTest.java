@@ -20,6 +20,7 @@ import static xin.lz1998.wcads.domain.Event.MEGAMINX;
 import static xin.lz1998.wcads.domain.Event.POCKET_CUBE;
 import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE;
 import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE_BLINDFOLDED;
+import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE_FEWEST_MOVES;
 import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE_MULTI_BLIND;
 import static xin.lz1998.wcads.domain.Event.RUBIKS_CUBE_ONE_HANDED;
 import static xin.lz1998.wcads.domain.Event.SIX_BY_SIX_CUBE;
@@ -189,6 +190,25 @@ public class Top10RankRepositoryTest {
 
         // then
         assertThat(top10Rank).isEmpty();
+    }
+
+    @Test
+    public void shouldReturnAllTop10RubiksCubeFewestMovesAverageResultForWholeWorldForAllGender() {
+        // given
+        Event event = RUBIKS_CUBE_FEWEST_MOVES;
+        ResultType type = AVERAGE;
+        String region = WORLD_RECORD.getBriefName();
+        Gender gender = ALL;
+
+        // then
+        List<Top10ResultDTO.Top10ItemDTO> top10Rank = top10RankRepository.findTop10RankForWholeWorld(event, type, gender);
+
+        // then
+        assertThat(top10Rank).hasSize(11);
+        assertThat(top10Rank.get(0).getBestResult()).isEqualTo(2100);
+        assertThat(top10Rank.get(0).getPlayerName()).isEqualTo("Cale Schoon");
+        assertThat(top10Rank.get(9).getBestResult()).isEqualTo(2367);
+        assertThat(top10Rank.get(9).getPlayerName()).isIn("Baiqiang Dong (董百强)", "Dávid Balog");
     }
 
 }

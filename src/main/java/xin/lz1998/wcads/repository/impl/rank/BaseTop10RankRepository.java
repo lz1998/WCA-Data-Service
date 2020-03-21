@@ -15,6 +15,7 @@ import xin.lz1998.wcads.domain.ResultType;
 import xin.lz1998.wcads.repository.Top10RankRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static xin.lz1998.wcads.domain.Gender.ALL;
 import static xin.lz1998.wcads.entity.QContinent.continent;
@@ -22,6 +23,13 @@ import static xin.lz1998.wcads.entity.QCountry.country;
 import static xin.lz1998.wcads.entity.QWcaPerson.wcaPerson;
 
 public abstract class BaseTop10RankRepository implements Top10RankRepository {
+
+    /**
+     * query top 20 results in case of there are multiple results same with 10th result.
+     * the results after 20th will be lose, though there are results same with 10th result after 20th.
+     * it's hard to use integrity query dsl because query-dsl and JPQL does not support LIMIT and OFFSET in subquery.
+     */
+    private static final int PRE_QUERY_NUMBER = 20;
 
     private static final int TOP_NUMBER = 10;
 
@@ -33,7 +41,7 @@ public abstract class BaseTop10RankRepository implements Top10RankRepository {
 
     @Override
     public List<Top10ResultDTO.Top10ItemDTO> findTop10RankForWholeWorld(Event event, ResultType type, Gender gender) {
-        return queryFactory.select(
+        List<Top10ResultDTO.Top10ItemDTO> topResults = queryFactory.select(
                 Projections.constructor(
                         Top10ResultDTO.Top10ItemDTO.class,
                         wcaPerson.name,
@@ -43,13 +51,14 @@ public abstract class BaseTop10RankRepository implements Top10RankRepository {
                 .on(getPersonIdColumnPath().eq(wcaPerson.id))
                 .where(buildWorldWhereExpression(event, gender))
                 .orderBy(getWorldRankColumnPath().asc())
-                .limit(TOP_NUMBER)
+                .limit(PRE_QUERY_NUMBER)
                 .fetch();
+        return getFullTop10Result(topResults);
     }
 
     @Override
     public List<Top10ResultDTO.Top10ItemDTO> findTop10RankForContinent(Event event, String continentName, ResultType type, Gender gender) {
-        return queryFactory.select(
+        List<Top10ResultDTO.Top10ItemDTO> topResults = queryFactory.select(
                 Projections.constructor(
                         Top10ResultDTO.Top10ItemDTO.class,
                         wcaPerson.name,
@@ -63,13 +72,14 @@ public abstract class BaseTop10RankRepository implements Top10RankRepository {
                 .on(country.continentId.eq(continent.id))
                 .where(buildContinentWhereExpression(event, continentName, gender))
                 .orderBy(getContinentRankColumnPath().asc())
-                .limit(TOP_NUMBER)
+                .limit(PRE_QUERY_NUMBER)
                 .fetch();
+        return getFullTop10Result(topResults);
     }
 
     @Override
     public List<Top10ResultDTO.Top10ItemDTO> findTop10RankForCountry(Event event, String country, ResultType type, Gender gender) {
-        return queryFactory.select(
+        List<Top10ResultDTO.Top10ItemDTO> topResults = queryFactory.select(
                 Projections.constructor(
                         Top10ResultDTO.Top10ItemDTO.class,
                         wcaPerson.name,
@@ -79,8 +89,16 @@ public abstract class BaseTop10RankRepository implements Top10RankRepository {
                 .on(getPersonIdColumnPath().eq(wcaPerson.id))
                 .where(buildCountryWhereExpression(event, country, gender))
                 .orderBy(getCountryRankColumnPath().asc())
-                .limit(TOP_NUMBER)
+                .limit(PRE_QUERY_NUMBER)
                 .fetch();
+        return getFullTop10Result(topResults);
+    }
+
+    @NotNull
+    private List<Top10ResultDTO.Top10ItemDTO> getFullTop10Result(List<Top10ResultDTO.Top10ItemDTO> topResults) {
+        return topResults.stream()
+                .filter(top10Item -> top10Item.getBestResult() <= topResults.get(TOP_NUMBER - 1).getBestResult())
+                .collect(Collectors.toList());
     }
 
     private Predicate buildWorldWhereExpression(Event event, Gender gender) {

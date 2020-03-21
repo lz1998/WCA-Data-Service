@@ -107,6 +107,13 @@
             <scope>runtime</scope>
             <version>8.0.18</version>
         </dependency>
+<!--        can use limit, offset in subquery comparing to querydsl     -->
+        <dependency>
+            <groupId>com.blazebit</groupId>
+            <artifactId>blaze-persistence-core-api</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+
 
     </dependencies>
 
