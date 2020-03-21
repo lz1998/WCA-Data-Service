@@ -11,6 +11,7 @@ import xin.lz1998.wcads.service.WcaPersonService;
 import xin.lz1998.wcads.utils.PageUtil;
 import xin.lz1998.wcads.utils.ResultWrapperUtils;
 
+import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
 @CrossOrigin("*")
@@ -19,8 +20,12 @@ import java.util.List;
 public class WcaPersonController {
     @Autowired
     private WcaPersonService wcaPersonService;
+    @Autowired
+    private EntityManager entityManager;
+    private int count=0;
     @RequestMapping("/findPersonById")
     public Object findPersonById(String id){
+
         WcaPerson data=wcaPersonService.findPersonById(id);
         return ResultWrapperUtils.resultWrapper(data);
     }
@@ -28,6 +33,16 @@ public class WcaPersonController {
 
     @RequestMapping("/searchPeople")
     public Object searchPeople(String q,Integer pageNum,Integer pageSize) {
+        if(++count%20==0){
+            synchronized (entityManager){
+                try{
+                    entityManager.flush();
+                }catch (Exception e){
+
+                }
+                entityManager.clear();
+            }
+        }
         String[] keywordArray=q.split(" ");
         List<String> stringList = Arrays.asList(keywordArray);
         Pageable pageable= PageUtil.getPageable(pageNum,pageSize);
