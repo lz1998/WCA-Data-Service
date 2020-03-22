@@ -33,6 +33,8 @@ public abstract class BaseTop10RankRepository implements Top10RankRepository {
 
     private static final int TOP_NUMBER = 10;
 
+    private static final int STANDARD_PERSON_SUB_ID = 1;
+
     private JPAQueryFactory queryFactory;
 
     public BaseTop10RankRepository(JPAQueryFactory queryFactory) {
@@ -125,7 +127,7 @@ public abstract class BaseTop10RankRepository implements Top10RankRepository {
     private BooleanBuilder buildBaseWhereExpression(Event event, Gender gender) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(getEventIdColumnPath().eq(event.getBriefName()))
-                .and(wcaPerson.subId.ne(2));
+                .and(wcaPerson.subId.eq(STANDARD_PERSON_SUB_ID));
         if (!ALL.equals(gender)) {
             booleanBuilder.and(wcaPerson.gender.eq(gender.getBriefName()));
         }
