@@ -19,4 +19,8 @@ public interface WcaService {
 
     void importCompetitions();
 
+    void importCountry();
+
+    void importContinent();
+
 }

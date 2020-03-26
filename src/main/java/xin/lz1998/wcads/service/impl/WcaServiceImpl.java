@@ -38,6 +38,8 @@ public class WcaServiceImpl implements WcaService {
     private static final String RANKS_AVERAGE_FILE = "WCA_export_RanksAverage.tsv";
     private static final String RANKS_SINGLE_FILE = "WCA_export_RanksSingle.tsv";
     private static final String RESULTS_FILE = "WCA_export_Results.tsv";
+    private static final String COUNTRIES_FILE = "WCA_export_Countries.tsv";
+    private static final String CONTINENTS_FILE = "WCA_export_Continents.tsv";
 
     private Logger logger =LoggerFactory.getLogger(WcaServiceImpl.class);
 
@@ -104,6 +106,8 @@ public class WcaServiceImpl implements WcaService {
         importRanksAverage();
         importRanksSingle();
         importResults();
+        importCountry();
+        importContinent();
         // TODO 这里可以导入其他数据，但是不常用，为了避免占内存就没写
     }
 
@@ -134,6 +138,18 @@ public class WcaServiceImpl implements WcaService {
     @Override
     public void importResults() {
         String filepath = Config.getWcaExtractPath() + RESULTS_FILE;
+        dataImportUtil.importData(filepath, WcaResult.class);
+    }
+
+    @Override
+    public void importCountry() {
+        String filepath = Config.getWcaExtractPath() + COUNTRIES_FILE;
+        dataImportUtil.importData(filepath, WcaResult.class);
+    }
+
+    @Override
+    public void importContinent() {
+        String filepath = Config.getWcaExtractPath() + CONTINENTS_FILE;
         dataImportUtil.importData(filepath, WcaResult.class);
     }
 }
