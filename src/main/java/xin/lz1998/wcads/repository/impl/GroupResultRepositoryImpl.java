@@ -1,11 +1,9 @@
 package xin.lz1998.wcads.repository.impl;
 
-import com.querydsl.core.types.Ops;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.core.types.dsl.NumberPath;
-import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
@@ -13,6 +11,7 @@ import xin.lz1998.wcads.controller.dto.PersonResultDTO;
 import xin.lz1998.wcads.domain.ResultType;
 import xin.lz1998.wcads.repository.GroupResultRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +24,7 @@ public class GroupResultRepositoryImpl implements GroupResultRepository {
     public static final int INVALID_RESULT = 0;
 
     private JPAQueryFactory queryFactory;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
     public GroupResultRepositoryImpl(JPAQueryFactory queryFactory) {
         this.queryFactory = queryFactory;
@@ -50,9 +50,12 @@ public class GroupResultRepositoryImpl implements GroupResultRepository {
 
     @NotNull
     private BooleanExpression buildDateExpression(Date startTime, Date endTime) {
-        StringExpression dateString = Expressions.asString(wcaCompetition.year.stringValue())
-                .concat("-").concat(wcaCompetition.month.stringValue())
-                .concat("-").concat(wcaCompetition.day.stringValue());
-        return Expressions.dateOperation(Date.class, Ops.DateTimeOps.DATE, dateString).between(startTime, endTime);
+        Integer startNum = Integer.valueOf(sdf.format(startTime));
+        Integer endNum = Integer.valueOf(sdf.format(endTime));
+        NumberExpression yearNumber = wcaCompetition.year.multiply(10000);
+        NumberExpression monthNumber = wcaCompetition.month.multiply(100);
+        NumberExpression dayNumber = wcaCompetition.day;
+        NumberExpression dateNumber = yearNumber.add(monthNumber).add(dayNumber);
+        return dateNumber.gt(startNum).and(dateNumber.lt(endNum));
     }
 }

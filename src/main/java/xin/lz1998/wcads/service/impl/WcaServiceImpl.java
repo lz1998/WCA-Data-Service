@@ -144,12 +144,12 @@ public class WcaServiceImpl implements WcaService {
     @Override
     public void importCountry() {
         String filepath = Config.getWcaExtractPath() + COUNTRIES_FILE;
-        dataImportUtil.importData(filepath, WcaResult.class);
+        dataImportUtil.importData(filepath, Country.class);
     }
 
     @Override
     public void importContinent() {
         String filepath = Config.getWcaExtractPath() + CONTINENTS_FILE;
-        dataImportUtil.importData(filepath, WcaResult.class);
+        dataImportUtil.importData(filepath, Continent.class);
     }
 }

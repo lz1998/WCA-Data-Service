@@ -104,14 +104,23 @@ public class DataImportUtil {
                 entityManager.merge(entity);
                 if (++count % 100 == 0) {
                     // 解决OOM问题
-                    entityManager.flush();
-                    entityManager.clear();
+
+                    try{
+                        entityManager.flush();
+                        entityManager.clear();
+                    }catch (Exception e){
+
+                    }
                     logger.info("import {} {} rows", entityClass.getSimpleName(), count);
                 }
             }
             logger.info("import {} complete",entityClass.getSimpleName());
-            entityManager.flush();
-            entityManager.clear();
+            try{
+                entityManager.flush();
+                entityManager.clear();
+            }catch (Exception e){
+
+            }
             rs.close();
             importing = false;
         } catch (Exception e) {
