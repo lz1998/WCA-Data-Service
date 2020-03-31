@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PersonResult {
     private String wcaId;
-    private List<PersonResultItem> personResultItem;
+    private List<PersonResultItem> personResultItemList;
 
     @Data
     @Builder

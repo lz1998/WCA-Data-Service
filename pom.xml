@@ -10,7 +10,7 @@
     </parent>
     <groupId>xin.lz1998</groupId>
     <artifactId>wca-ds</artifactId>
-    <version>0.1.17</version>
+    <version>0.1.18</version>
     <name>wca-ds</name>
     <description>Demo project for Spring Boot</description>
 
@@ -89,7 +89,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.59</version>
+            <version>1.2.62</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>

@@ -33,7 +33,7 @@ public class GroupResultServiceImpl implements GroupResultService {
         List<PersonResult.PersonResultItem> personResultItem = allEventSingleResultsByWcaIdAndDuration.stream()
                 .map(personResultDTO -> buildResultForEvent(allEventAverageResultsByWcaIdAndDuration, personResultDTO))
                 .collect(Collectors.toList());
-        return PersonResult.builder().wcaId(requestItem.getWcaId()).personResultItem(personResultItem).build();
+        return PersonResult.builder().wcaId(requestItem.getWcaId()).personResultItemList(personResultItem).build();
     }
 
     private PersonResult.PersonResultItem buildResultForEvent(List<PersonResultDTO> averageResults, PersonResultDTO singleResult) {
