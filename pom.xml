@@ -117,6 +117,13 @@
 
     </dependencies>
 
+    <pluginRepositories>
+        <pluginRepository>
+            <id>com.spotify</id>
+            <url>https://github.com/spotify/docker-maven-plugin</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <build>
         <plugins>
             <plugin>
