@@ -26,12 +26,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build docker image
-        run: mvn docker:build
+        env:
+          VERSION: 0.1.19
+        run: sudo docker build . --build-arg JAR_FILE=target/wca-ds-${VERSION}.jar --tag lzbot/wca-data-service:latest --tag lzbot/wca-data-service:${VERSION}
       - name: push docker image
         env:
-          docker_username: ${{ secrets.DOCKER_USERNAME }}
-          docker_password: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          VERSION: 0.1.19
         run: |
-          sudo docker login --username=${docker_username} --password=${docker_password}
+          sudo docker login --username=${DOCKER_USERNAME} --password=${DOCKER_PASSWORD}
+          sudo docker push hub.docker.com/lzbot/wca-data-service:${VERSION}
           sudo docker push hub.docker.com/lzbot/wca-data-service:latest
 
