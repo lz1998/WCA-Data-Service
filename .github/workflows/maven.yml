@@ -27,6 +27,7 @@ jobs:
     env:
       VERSION: 0.1.19
     steps:
+      - uses: actions/checkout@v2
       - name: test workdir
         run: |
           ls -al
