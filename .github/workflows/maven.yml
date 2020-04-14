@@ -47,7 +47,12 @@ jobs:
         with:
           name: wca-ds-assets
       - name: build docker image
-        run: sudo docker build . --build-arg JAR_FILE=target/wca-ds-${VERSION}.jar --tag lzbot/wca-data-service:latest --tag lzbot/wca-data-service:${VERSION}
+        run:
+          sudo docker build |
+          --file wca-ds-assets/Dockerfile |
+          --build-arg JAR_FILE=wca-ds-assets/target/wca-ds-${VERSION}.jar |
+          --tag lzbot/wca-data-service:latest |
+          --tag lzbot/wca-data-service:${VERSION}
       - name: push docker image
         run: |
           sudo docker login --username=${DOCKER_USERNAME} --password=${DOCKER_PASSWORD}
