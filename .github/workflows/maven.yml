@@ -34,12 +34,14 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: wca-ds-assets
-        path: target/wca-ds-${VERSION}.jar
+        path: target/wca-ds-${{ env.VERSION }}.jar
   publish:
     needs: build
     runs-on: ubuntu-latest
     env:
       VERSION: 0.1.19
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     steps:
       - uses: actions/download-artifact@v1
         with:
@@ -47,9 +49,6 @@ jobs:
       - name: build docker image
         run: sudo docker build . --build-arg JAR_FILE=target/wca-ds-${VERSION}.jar --tag lzbot/wca-data-service:latest --tag lzbot/wca-data-service:${VERSION}
       - name: push docker image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           sudo docker login --username=${DOCKER_USERNAME} --password=${DOCKER_PASSWORD}
           sudo docker push hub.docker.com/lzbot/wca-data-service:${VERSION}
