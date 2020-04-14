@@ -50,6 +50,6 @@ jobs:
       - name: push docker image
         run: |
           sudo docker login --username=${DOCKER_USERNAME} --password=${DOCKER_PASSWORD}
-          sudo docker push hub.docker.com/lzbot/wca-data-service:${VERSION}
-          sudo docker push hub.docker.com/lzbot/wca-data-service:latest
+          sudo docker push lzbot/wca-data-service:${VERSION}
+          sudo docker push lzbot/wca-data-service:latest
 
