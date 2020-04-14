@@ -45,14 +45,8 @@ jobs:
       - uses: actions/download-artifact@v1
         with:
           name: wca-ds-assets
-      - name: test workdir
-        run: |
-          ls -al
-          ls -al wca-ds-assets
-          ls -al wca-ds-assets/target
-          pwd
       - name: build docker image
-        run: sudo docker build . --file wca-ds-assets/Dockerfile --build-arg JAR_FILE=wca-ds-assets/target/wca-ds-${VERSION}.jar --tag lzbot/wca-data-service:latest --tag lzbot/wca-data-service:${VERSION}
+        run: sudo docker build . --file wca-ds-assets/Dockerfile --build-arg JAR_FILE=wca-ds-assets/wca-ds-${VERSION}.jar --tag lzbot/wca-data-service:latest --tag lzbot/wca-data-service:${VERSION}
       - name: push docker image
         run: |
           sudo docker login --username=${DOCKER_USERNAME} --password=${DOCKER_PASSWORD}
