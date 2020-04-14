@@ -8,8 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-      env:
-        VERSION: 0.1.19
+    env:
+      VERSION: 0.1.19
     steps:
     - uses: actions/checkout@v2
 
