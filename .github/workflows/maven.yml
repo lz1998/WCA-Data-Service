@@ -17,10 +17,22 @@ jobs:
         java-version: 1.8
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B package --file pom.xml -Dmaven.test.skip=true
 
     - name: Run tests
       run: mvn test
+
+    - name: Upload Dockerfile to artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: wca-ds-assets
+        path: Dockerfile
+
+    - name: Upload jar to artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: wca-ds-assets
+        path: target/wca-ds-*.jar
   publish:
     needs: build
     runs-on: ubuntu-latest
@@ -28,11 +40,9 @@ jobs:
       VERSION: 0.1.19
     steps:
       - uses: actions/checkout@v2
-      - name: test workdir
-        run: |
-          ls -al
-          ls -al ..
-          pwd
+      - uses: actions/download-artifact@v1
+        with:
+          name: wca-ds-assets
       - name: build docker image
         run: sudo docker build . --build-arg JAR_FILE=target/wca-ds-${VERSION}.jar --tag lzbot/wca-data-service:latest --tag lzbot/wca-data-service:${VERSION}
       - name: push docker image
