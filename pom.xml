@@ -105,7 +105,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-            <version>8.0.18</version>
+            <version>8.0.28</version>
         </dependency>
 <!--        can use limit, offset in subquery comparing to querydsl     -->
         <dependency>
